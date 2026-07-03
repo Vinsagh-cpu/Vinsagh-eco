@@ -1,0 +1,23 @@
+reportes/**/*.xls
+examples/demo_reportes/**/*.xls
+examples/demo_data/biometrico_eventos.csv
+server-test*.log
+*.tmp
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Dart/Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+
+# Local environment
+.env
+.env.*

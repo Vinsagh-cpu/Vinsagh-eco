@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vinsagh-eco.local/schemas/assets_manifest_schema.json",
+  "title": "Vinsagh Eco Assets Manifest",
+  "type": "object",
+  "required": [
+    "project",
+    "studio",
+    "manifestVersion",
+    "updatedAt",
+    "assets"
+  ],
+  "properties": {
+    "project": {
+      "const": "Vinsagh Eco"
+    },
+    "studio": {
+      "const": "Vinsagh Eco Studios"
+    },
+    "manifestVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "status",
+          "path"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^VE-ASSET-[A-Z0-9-]+$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "deprecated"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^assets/"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
