@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/vinsagh_spacing.dart';
+
 class ScopePanel extends StatelessWidget {
   const ScopePanel({
     super.key,
@@ -22,20 +24,18 @@ class ScopePanel extends StatelessWidget {
         border: Border.all(color: scheme.outlineVariant),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(VinsaghSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+              style: theme.textTheme.titleMedium,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: VinsaghSpacing.md),
             for (final line in lines) ...[
               _ScopeLine(theme: theme, label: line),
-              const SizedBox(height: 8),
+              const SizedBox(height: VinsaghSpacing.sm),
             ],
           ],
         ),
@@ -58,14 +58,14 @@ class _ScopeLine extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 7),
+          padding: const EdgeInsets.only(top: VinsaghSpacing.sm),
           child: Icon(
             Icons.check_circle_outline,
-            size: 16,
+            size: VinsaghSpacing.md,
             color: scheme.primary,
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: VinsaghSpacing.md),
         Expanded(
           child: Text(
             label,

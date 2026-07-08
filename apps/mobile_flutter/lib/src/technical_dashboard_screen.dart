@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'theme/vinsagh_spacing.dart';
 import 'widgets/footer_badge.dart';
 import 'widgets/scope_panel.dart';
 import 'widgets/technical_status_card.dart';
@@ -9,8 +10,7 @@ class TechnicalDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
+    final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       backgroundColor: scheme.surface,
@@ -21,14 +21,14 @@ class TechnicalDashboardScreen extends StatelessWidget {
 
             return Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(VinsaghSpacing.xl),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1120),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const _DashboardHeader(),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: VinsaghSpacing.lg),
                       if (isWide)
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,14 +44,14 @@ class TechnicalDashboardScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 24),
+                            SizedBox(width: VinsaghSpacing.lg),
                             Expanded(
                               child: ScopePanel(
                                 title: 'Panel de alcance',
                                 lines: <String>[
                                   'PACKAGE-002',
                                   'Entorno controlado',
-                                  'Widgets t\u00E9cnicos separados',
+                                  'Control de tokens',
                                 ],
                               ),
                             ),
@@ -67,17 +67,17 @@ class TechnicalDashboardScreen extends StatelessWidget {
                             'Sin assets reales',
                           ],
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: VinsaghSpacing.lg),
                         const ScopePanel(
                           title: 'Panel de alcance',
                           lines: <String>[
                             'PACKAGE-002',
                             'Entorno controlado',
-                            'Widgets t\u00E9cnicos separados',
+                            'Control de tokens',
                           ],
                         ),
                       ],
-                      const SizedBox(height: 24),
+                      const SizedBox(height: VinsaghSpacing.lg),
                       const _TechnicalFooter(),
                     ],
                   ),
@@ -106,24 +106,22 @@ class _DashboardHeader extends StatelessWidget {
         border: Border.all(color: scheme.outlineVariant),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(VinsaghSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Vinsagh Eco Studios',
-              style: theme.textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+              style: theme.textTheme.headlineMedium,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: VinsaghSpacing.sm),
             Text(
-              'APP-003 \u00B7 Widgets t\u00E9cnicos separados',
+              'APP-004 \u00B7 Tema visual t\u00E9cnico',
               style: theme.textTheme.titleMedium,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: VinsaghSpacing.md),
             Text(
-              'Base t\u00E9cnica m\u00EDnima para PACKAGE-002.',
+              'Base visual controlada para la siguiente fase.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: scheme.onSurfaceVariant,
               ),
@@ -150,28 +148,33 @@ class _TechnicalFooter extends StatelessWidget {
         border: Border.all(color: scheme.outlineVariant),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(VinsaghSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Pie tecnico',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w700,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: VinsaghSpacing.md),
+            Text(
+              'Preparado para crecer sin redefinir la base.',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: scheme.onSurfaceVariant,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: VinsaghSpacing.md),
             Wrap(
-              spacing: 12,
-              runSpacing: 12,
+              spacing: VinsaghSpacing.sm,
+              runSpacing: VinsaghSpacing.sm,
               children: const <Widget>[
                 FooterBadge(
                   icon: Icons.layers_outlined,
-                  label: 'PACKAGE-002',
+                  label: 'Base controlada',
                 ),
                 FooterBadge(
                   icon: Icons.verified_outlined,
-                  label: 'Entorno controlado',
+                  label: 'Reutilizable',
                 ),
               ],
             ),
