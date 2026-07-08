@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'theme/vinsagh_spacing.dart';
 import 'widgets/footer_badge.dart';
 import 'widgets/scope_panel.dart';
+import 'widgets/technical_navigation_panel.dart';
 import 'widgets/technical_status_card.dart';
 
 class TechnicalDashboardScreen extends StatelessWidget {
@@ -28,6 +29,8 @@ class TechnicalDashboardScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const _DashboardHeader(),
+                      const SizedBox(height: VinsaghSpacing.lg),
+                      const TechnicalNavigationPanel(),
                       const SizedBox(height: VinsaghSpacing.lg),
                       if (isWide)
                         Row(
@@ -116,7 +119,7 @@ class _DashboardHeader extends StatelessWidget {
             ),
             const SizedBox(height: VinsaghSpacing.sm),
             Text(
-              'APP-004 \u00B7 Tema visual t\u00E9cnico',
+              'APP-005 \u00B7 Navegaci\u00F3n t\u00E9cnica no funcional',
               style: theme.textTheme.titleMedium,
             ),
             const SizedBox(height: VinsaghSpacing.md),
