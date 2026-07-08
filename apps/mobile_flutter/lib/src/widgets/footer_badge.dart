@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/vinsagh_spacing.dart';
+
 class FooterBadge extends StatelessWidget {
   const FooterBadge({
     super.key,
@@ -16,7 +18,10 @@ class FooterBadge extends StatelessWidget {
     final scheme = theme.colorScheme;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        horizontal: VinsaghSpacing.md,
+        vertical: VinsaghSpacing.sm + 2,
+      ),
       decoration: BoxDecoration(
         color: scheme.surface,
         borderRadius: BorderRadius.circular(12),
@@ -25,8 +30,8 @@ class FooterBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: scheme.primary),
-          const SizedBox(width: 8),
+          Icon(icon, size: VinsaghSpacing.md, color: scheme.primary),
+          const SizedBox(width: VinsaghSpacing.sm),
           Text(
             label,
             style: theme.textTheme.labelLarge,
