@@ -6,6 +6,7 @@ import 'widgets/scope_panel.dart';
 import 'widgets/technical_modules_panel.dart';
 import 'widgets/technical_navigation_panel.dart';
 import 'widgets/technical_status_card.dart';
+import 'widgets/vertical_001_panel.dart';
 
 class TechnicalDashboardScreen extends StatelessWidget {
   const TechnicalDashboardScreen({super.key});
@@ -34,6 +35,8 @@ class TechnicalDashboardScreen extends StatelessWidget {
                       const TechnicalNavigationPanel(),
                       const SizedBox(height: VinsaghSpacing.lg),
                       const TechnicalModulesPanel(),
+                      const SizedBox(height: VinsaghSpacing.lg),
+                      const Vertical001Panel(),
                       const SizedBox(height: VinsaghSpacing.lg),
                       if (isWide)
                         Row(
@@ -119,12 +122,12 @@ class _DashboardHeader extends StatelessWidget {
             Text('Vinsagh Eco Studios', style: theme.textTheme.headlineMedium),
             const SizedBox(height: VinsaghSpacing.sm),
             Text(
-              'APP-006 · Módulos técnicos placeholder',
+              'APP-007 · Vertical 001 técnico no funcional',
               style: theme.textTheme.titleMedium,
             ),
             const SizedBox(height: VinsaghSpacing.md),
             Text(
-              'Preparación controlada para validar estructura, orden y crecimiento técnico.',
+              'Vertical 001 · Primera Travesía preparado como referencia técnica placeholder.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: scheme.onSurfaceVariant,
               ),
@@ -158,7 +161,7 @@ class _TechnicalFooter extends StatelessWidget {
             Text('Pie tecnico', style: theme.textTheme.titleMedium),
             const SizedBox(height: VinsaghSpacing.md),
             Text(
-              'Módulos visibles solo como placeholders técnicos; sin navegación funcional real.',
+              'Vertical 001 visible solo como placeholder técnico; sin navegación funcional real.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: scheme.onSurfaceVariant,
               ),
