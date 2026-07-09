@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'theme/vinsagh_spacing.dart';
 import 'widgets/footer_badge.dart';
 import 'widgets/scope_panel.dart';
+import 'widgets/technical_modules_panel.dart';
 import 'widgets/technical_navigation_panel.dart';
 import 'widgets/technical_status_card.dart';
 
@@ -31,6 +32,8 @@ class TechnicalDashboardScreen extends StatelessWidget {
                       const _DashboardHeader(),
                       const SizedBox(height: VinsaghSpacing.lg),
                       const TechnicalNavigationPanel(),
+                      const SizedBox(height: VinsaghSpacing.lg),
+                      const TechnicalModulesPanel(),
                       const SizedBox(height: VinsaghSpacing.lg),
                       if (isWide)
                         Row(
@@ -113,18 +116,15 @@ class _DashboardHeader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Vinsagh Eco Studios',
-              style: theme.textTheme.headlineMedium,
-            ),
+            Text('Vinsagh Eco Studios', style: theme.textTheme.headlineMedium),
             const SizedBox(height: VinsaghSpacing.sm),
             Text(
-              'APP-005 \u00B7 Navegaci\u00F3n t\u00E9cnica no funcional',
+              'APP-006 · Módulos técnicos placeholder',
               style: theme.textTheme.titleMedium,
             ),
             const SizedBox(height: VinsaghSpacing.md),
             Text(
-              'Base visual controlada para la siguiente fase.',
+              'Preparación controlada para validar estructura, orden y crecimiento técnico.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: scheme.onSurfaceVariant,
               ),
@@ -155,13 +155,10 @@ class _TechnicalFooter extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Pie tecnico',
-              style: theme.textTheme.titleMedium,
-            ),
+            Text('Pie tecnico', style: theme.textTheme.titleMedium),
             const SizedBox(height: VinsaghSpacing.md),
             Text(
-              'Preparado para crecer sin redefinir la base.',
+              'Módulos visibles solo como placeholders técnicos; sin navegación funcional real.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: scheme.onSurfaceVariant,
               ),
@@ -171,13 +168,10 @@ class _TechnicalFooter extends StatelessWidget {
               spacing: VinsaghSpacing.sm,
               runSpacing: VinsaghSpacing.sm,
               children: const <Widget>[
-                FooterBadge(
-                  icon: Icons.layers_outlined,
-                  label: 'Base controlada',
-                ),
+                FooterBadge(icon: Icons.layers_outlined, label: 'PACKAGE-002'),
                 FooterBadge(
                   icon: Icons.verified_outlined,
-                  label: 'Reutilizable',
+                  label: 'Entorno controlado',
                 ),
               ],
             ),
