@@ -11,6 +11,7 @@ class VinsaghColors {
 
   static const Color secondary = Color(0xFF4F6F67);
   static const Color secondaryContainer = Color(0xFFDDE9E5);
+  static const Color canopy = Color(0xFF6F7D54);
 
   static const Color accent = Color(0xFFC69A3D);
   static const Color accentContainer = Color(0xFFF3E5BD);

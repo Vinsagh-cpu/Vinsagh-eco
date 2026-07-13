@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/vinsagh_colors.dart';
 import '../../../theme/vinsagh_spacing.dart';
 
 class AtelierCard extends StatelessWidget {
@@ -8,13 +9,12 @@ class AtelierCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: scheme.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: scheme.outlineVariant),
+        color: VinsaghColors.surface,
+        borderRadius: BorderRadius.circular(VinsaghRadii.lg),
+        border: Border.all(color: VinsaghColors.outlineVariant),
       ),
       child: Padding(
         padding: const EdgeInsets.all(VinsaghSpacing.lg),
@@ -24,7 +24,19 @@ class AtelierCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.palette_outlined, color: scheme.primary, size: 28),
+                Container(
+                  width: 46,
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: VinsaghColors.primaryContainer,
+                    borderRadius: BorderRadius.circular(VinsaghRadii.sm),
+                  ),
+                  child: const Icon(
+                    Icons.palette_outlined,
+                    color: VinsaghColors.primary,
+                    size: 26,
+                  ),
+                ),
                 const SizedBox(width: VinsaghSpacing.md),
                 Expanded(
                   child: Column(
@@ -33,7 +45,7 @@ class AtelierCard extends StatelessWidget {
                       Text('Atelier', style: theme.textTheme.titleMedium),
                       const SizedBox(height: VinsaghSpacing.sm),
                       Text(
-                        'Un espacio para ajustar color, textura y símbolo antes de sellar una Huella.',
+                        'Ajusta color, textura y símbolo antes de sellar una Huella.',
                         style: theme.textTheme.bodyMedium,
                       ),
                     ],
@@ -57,11 +69,14 @@ class AtelierCard extends StatelessWidget {
               icon: const Icon(Icons.brush_outlined, size: 18),
               label: const Text('Crear en el Atelier'),
               style: OutlinedButton.styleFrom(
-                foregroundColor: scheme.primary,
-                side: BorderSide(color: scheme.primary),
+                foregroundColor: VinsaghColors.primary,
+                side: const BorderSide(color: VinsaghColors.primary),
                 padding: const EdgeInsets.symmetric(
                   horizontal: VinsaghSpacing.lg,
                   vertical: VinsaghSpacing.md,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(VinsaghRadii.pill),
                 ),
               ),
             ),
@@ -80,7 +95,6 @@ class _AtelierTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -88,12 +102,14 @@ class _AtelierTag extends StatelessWidget {
         vertical: VinsaghSpacing.sm,
       ),
       decoration: BoxDecoration(
-        color: scheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(999),
+        color: VinsaghColors.secondaryContainer,
+        borderRadius: BorderRadius.circular(VinsaghRadii.pill),
       ),
       child: Text(
         label,
-        style: theme.textTheme.labelLarge?.copyWith(color: scheme.secondary),
+        style: theme.textTheme.labelLarge?.copyWith(
+          color: VinsaghColors.secondary,
+        ),
       ),
     );
   }

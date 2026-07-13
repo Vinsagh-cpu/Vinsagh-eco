@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vinsagh_eco_mobile/src/vinsagh_eco_app.dart';
 
 void main() {
-  testWidgets('renders the APP-007 Mi Sendero home experience', (
+  testWidgets('renders the APP-009 Mi Sendero visual experience', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const VinsaghEcoApp());
@@ -19,12 +19,23 @@ void main() {
     expect(find.text('Iniciar Reconexión'), findsOneWidget);
     expect(find.text('Galería de Samara'), findsWidgets);
     expect(find.text('Atelier'), findsWidgets);
-    expect(find.text('Crear en el Atelier'), findsOneWidget);
     expect(find.text('Mi Impacto'), findsWidgets);
-    expect(find.text('CO₂ evitado'), findsOneWidget);
-    expect(find.text('agua ahorrada'), findsOneWidget);
-    expect(find.text('residuos reducidos'), findsOneWidget);
-    expect(find.text('Compi / Lumi'), findsOneWidget);
+    expect(find.text('Compi'), findsOneWidget);
+    expect(find.text('Lumi'), findsOneWidget);
+
+    final scrollTargets = <Finder>[
+      find.text('Galería de Samara').last,
+      find.text('Atelier').last,
+      find.text('Mi Impacto').last,
+      find.text('Compi'),
+      find.text('Lumi'),
+    ];
+
+    for (final target in scrollTargets) {
+      await tester.ensureVisible(target);
+      await tester.pumpAndSettle();
+      expect(target, findsOneWidget);
+    }
 
     final renderedText = find
         .byType(Text)

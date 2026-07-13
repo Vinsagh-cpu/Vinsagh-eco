@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/vinsagh_colors.dart';
 import '../../../theme/vinsagh_spacing.dart';
 
 class ImpactCard extends StatelessWidget {
@@ -14,13 +15,12 @@ class ImpactCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: scheme.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: scheme.outlineVariant),
+        color: VinsaghColors.surface,
+        borderRadius: BorderRadius.circular(VinsaghRadii.lg),
+        border: Border.all(color: VinsaghColors.outlineVariant),
       ),
       child: Padding(
         padding: const EdgeInsets.all(VinsaghSpacing.lg),
@@ -29,21 +29,28 @@ class ImpactCard extends StatelessWidget {
           children: [
             Text('Mi Impacto', style: theme.textTheme.titleMedium),
             const SizedBox(height: VinsaghSpacing.sm),
-            Text(
-              'Métricas iniciales para observar cómo crece tu Huella sostenible.',
-              style: theme.textTheme.bodyMedium,
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 620),
+              child: Text(
+                'Métricas iniciales para observar cómo crece tu Huella sostenible.',
+                style: theme.textTheme.bodyMedium,
+              ),
             ),
             const SizedBox(height: VinsaghSpacing.lg),
             LayoutBuilder(
               builder: (context, constraints) {
-                final isWide = constraints.maxWidth >= 620;
-                final metricWidth = isWide
-                    ? (constraints.maxWidth - (VinsaghSpacing.md * 2)) / 3
-                    : constraints.maxWidth;
+                final columns = constraints.maxWidth >= 720
+                    ? 3
+                    : constraints.maxWidth >= 500
+                    ? 2
+                    : 1;
+                final gap = VinsaghSpacing.md;
+                final metricWidth =
+                    (constraints.maxWidth - (gap * (columns - 1))) / columns;
 
                 return Wrap(
-                  spacing: VinsaghSpacing.md,
-                  runSpacing: VinsaghSpacing.md,
+                  spacing: gap,
+                  runSpacing: gap,
                   children: [
                     for (final metric in _metrics)
                       SizedBox(
@@ -69,18 +76,17 @@ class _ImpactMetricTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(VinsaghSpacing.md),
       decoration: BoxDecoration(
-        color: scheme.primaryContainer.withAlpha(145),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: scheme.primary.withAlpha(42)),
+        color: VinsaghColors.primaryContainer.withAlpha(145),
+        borderRadius: BorderRadius.circular(VinsaghRadii.md),
+        border: Border.all(color: VinsaghColors.primary.withAlpha(42)),
       ),
       child: Row(
         children: [
-          Icon(metric.icon, color: scheme.primary, size: 24),
+          Icon(metric.icon, color: VinsaghColors.primary, size: 24),
           const SizedBox(width: VinsaghSpacing.md),
           Expanded(
             child: Column(
@@ -89,7 +95,7 @@ class _ImpactMetricTile extends StatelessWidget {
                 Text(
                   metric.value,
                   style: theme.textTheme.titleMedium?.copyWith(
-                    color: scheme.primary,
+                    color: VinsaghColors.primary,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
