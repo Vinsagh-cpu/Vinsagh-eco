@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'features/home/home_screen.dart';
 import 'theme/vinsagh_theme.dart';
-import 'technical_dashboard_screen.dart';
 
 class VinsaghEcoApp extends StatelessWidget {
   const VinsaghEcoApp({super.key});
@@ -12,7 +12,7 @@ class VinsaghEcoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Vinsagh Eco Studios',
       theme: VinsaghTheme.light(),
-      home: const TechnicalDashboardScreen(),
+      home: const HomeScreen(),
     );
   }
 }
