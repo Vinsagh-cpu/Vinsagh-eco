@@ -190,7 +190,7 @@ La base minima es adecuada para una reestructuracion sin presion de compatibilid
 - `CompanionPanel` define a Compi y Lumi como textos estaticos dentro de una sola pantalla.
 - Clases tecnicas (`TechnicalModule`, `TechnicalNavigationItem`, `Vertical001Stage`) dependen de `IconData`, por lo que no son dominio puro.
 - `widget_test.dart` usa textos de UI como contrato; esto protege la visual, pero vuelve fragil cualquier cambio de microcopy.
-- La documentacion usa `Agente`, `Vin` y `Sagh`; la UI actual usa `Guardian`, `Compi` y `Lumi`. Esa diferencia no debe resolverse en codigo sin decision creativa.
+- La documentacion usa `Agente`, `Vin` y `Sagh`; la UI actual usa `Guardian`, `Compi` y `Lumi`. La resolucion vigente adopta `Guardian` y confirma Compi/Lumi como canonicos; la relacion con Vin/Sagh sigue pendiente.
 
 ## 7. Deuda tecnica
 
@@ -216,7 +216,7 @@ La base minima es adecuada para una reestructuracion sin presion de compatibilid
 | Riesgo | Impacto | Mitigacion |
 | --- | --- | --- |
 | Mover todo el arbol objetivo de una vez | Rompe APP-009 o genera carpetas vacias sin valor | Migracion por feature con diffs pequenos |
-| Crear modelos antes de validar nombres | Duplica `Agente`, `Guardian`, `Compi`, `Lumi`, `Vin`, `Sagh` | Decision creativa antes de dominio |
+| Crear modelos antes de cerrar contratos y relaciones | Duplica `Guardian`, `Compi`, `Lumi`, `Vin`, `Sagh`, Huellas o progreso | Decision creativa y tecnica antes de dominio |
 | Introducir router antes del flujo Portal | Navegacion rigida o incorrecta | Primero desacoplar `home`, luego rutas |
 | Crear `data/` sin persistencia aprobada | Repositorios vacios y contratos falsos | Esperar a Firebase/local storage aprobados |
 | Agregar AR temprano | Dependencias pesadas y permisos sin UX | Reservar capacidades, no plugins |
@@ -293,20 +293,20 @@ Partes a desacoplar:
 
 ## 11. Evaluacion de personajes
 
-Compi y Lumi existen solo en `CompanionPanel` como dos `_CompanionNote` estaticos. No hay entidad, contrato, id, estado, assets, comportamiento, tono configurable ni reutilizacion fuera de Mi Sendero.
+Compi y Lumi existen solo en `CompanionPanel` como dos `_CompanionNote` estaticos. La resolucion creativa vigente confirma que son personajes principales y canonicos de la IP: Compi impulsa la exploracion y Lumi sensibiliza despues de una experiencia. No hay todavia entidad tecnica, contrato, id, estado, assets, comportamiento, tono configurable ni reutilizacion fuera de Mi Sendero.
 
 Evaluacion:
 
 - SE ADAPTA el panel visual.
-- Compi y Lumi deben salir de una sola pantalla y vivir como responsabilidad de `features/characters` cuando se autorice.
+- Compi y Lumi deben salir de una sola pantalla y vivir como responsabilidad de `features/characters` cuando se autorice implementacion.
 - No se debe crear todavia un sistema de personajes.
 - No se debe asumir relacion canonica con Vin y Sagh.
-- La direccion creativa debe validar si Compi/Lumi son personajes, asistentes, estados, voces, guias o componentes temporales.
+- La direccion creativa ya resolvio su condicion de personajes principales; siguen pendientes relacion con Vin/Sagh, reglas de aparicion, assets, estados y contratos.
 
 Requisito futuro minimo antes de implementar:
 
 - Identificador estable por personaje o presencia.
-- Rol narrativo aprobado.
+- Rol narrativo aprobado y comportamiento esperado por contexto.
 - Nivel de personalizacion permitido.
 - Relacion con Guardian, Portal y Sendero.
 - Regla de uso en pantallas distintas a Mi Sendero.
@@ -315,7 +315,7 @@ Requisito futuro minimo antes de implementar:
 
 ### Perfil
 
-La UI usa "Guardian" en copy y `GuardianHeader`, pero no existe `GuardianProfile`, preferencias, consentimiento, estado, identidad ni persistencia. La documentacion previa usa "Agente". Este cambio de vocabulario es un riesgo de modelo si se implementa sin validacion.
+La UI usa "Guardian" en copy y `GuardianHeader`, pero no existe `GuardianProfile`, preferencias, consentimiento, estado, identidad ni persistencia. La documentacion previa usa "Agente"; la resolucion vigente adopta `Guardian` como termino principal. El riesgo restante es tecnico: crear modelos antes de cerrar contratos, privacidad y relacion con documentos legacy.
 
 ### Economia
 
@@ -326,7 +326,7 @@ La UI usa "Guardian" en copy y `GuardianHeader`, pero no existe `GuardianProfile
 - `V.S. Coins`.
 - texto de reserva para futuras Reconexiones.
 
-No existe economia interna, reglas de emision, reglas de gasto, historial, inventario, recompensas ni persistencia. `V.S. Coins` no debe convertirse todavia en clase productiva sin definicion economica y creativa.
+No existe economia interna implementada, reglas de emision, reglas de gasto, historial, inventario, recompensas ni persistencia. La resolucion vigente define `V.S. Coins` como reconocimiento interno, no dinero ni puntos; no debe convertirse todavia en clase productiva sin contrato tecnico.
 
 ### Impacto
 
@@ -342,7 +342,7 @@ Estas metricas pertenecen probablemente a `footprints`, `guardian impact` o `pro
 
 ### Portal
 
-No existe Portal en codigo. La preparacion correcta es arquitectonica:
+No existe Portal en codigo. La resolucion vigente define el acceso futuro como Primer Vinculo -> Portal -> transicion -> Mi Sendero. La preparacion correcta sigue siendo arquitectonica:
 
 - Desacoplar entrada inicial.
 - Reservar una feature `portal` cuando haya flujo aprobado.
@@ -351,7 +351,7 @@ No existe Portal en codigo. La preparacion correcta es arquitectonica:
 
 ### Realidad Aumentada
 
-No hay dependencias ni permisos AR. No se recomienda agregarlos todavia.
+No hay dependencias ni permisos AR. La resolucion vigente establece que AR es parte obligatoria del Portal y usara camara/anclaje espacial, pero no se recomienda agregar dependencias todavia.
 
 Preparacion conceptual:
 
@@ -359,6 +359,7 @@ Preparacion conceptual:
 - Relacionar AR con consentimiento antes de cualquier acceso a camara/sensores.
 - Mantener assets y modelos 3D bajo reglas de manifiesto.
 - Evitar que AR controle el dominio de Sendero, Huellas o Atelier.
+- Resolver proveedor, plugin, persistencia tecnica y recuperacion antes de implementar.
 
 ## 14. Arquitectura objetivo propuesta
 
@@ -399,7 +400,7 @@ lib/src/
 ### Reservado para fases posteriores
 
 - `features/guardian/domain` y `features/guardian/data`: esperar perfil, esencia, preferencias y consentimiento.
-- `features/portal`: esperar definicion de Primer Vinculo, Portal y transicion.
+- `features/portal`: flujo Primer Vinculo -> Portal -> transicion resuelto conceptualmente; implementacion reservada.
 - `features/footprints`: esperar propiedad de Huellas, Impacto y progreso.
 - `features/community`: no hay UI ni flujo actual.
 - `features/library`: aparece en sidebar, pero sin pantalla ni contenido.
@@ -429,13 +430,13 @@ No debe contener copy narrativo especifico ni datos de dominio.
 
 - `journey`: composicion de Mi Sendero y experiencia principal visible.
 - `guardian`: identidad, perfil progresivo, esencia, preferencias y consentimiento cuando se aprueben.
-- `portal`: entrada inicial y transicion narrativa cuando se aprueben.
+- `portal`: entrada inicial y transicion narrativa del flujo Primer Vinculo -> Portal -> Mi Sendero, sin implementacion todavia.
 - `footprints`: Huellas, impacto y progreso si Direccion confirma esa propiedad.
-- `gallery`: Galeria de Samara, colecciones y piezas cuando se apruebe taxonomia.
-- `atelier`: personalizacion, diseno, monograma o huella visual cuando haya reglas.
-- `reconnection`: sesiones/encuentros de reconexion cuando exista flujo.
-- `wallet`: cartera, V.S. Coins, recompensas, inventario o historial si se aprueba economia.
-- `characters`: Compi, Lumi y otras presencias reutilizables una vez validadas.
+- `gallery`: Galeria de Samara como espacio de descubrimiento de piezas; taxonomia tecnica pendiente.
+- `atelier`: espacio creativo vinculado al recorrido del Guardian; reglas tecnicas pendientes.
+- `reconnection`: flujo de economia real para vincular una pieza.
+- `wallet`: economia interna y reconocimiento V.S. Coins; no debe acoplarse a Reconexion.
+- `characters`: Compi y Lumi como personajes principales canonicos de la IP; relacion con Vin/Sagh pendiente.
 - `community` y `library`: reservadas; no necesarias ahora.
 
 ## 15. Mapa de migracion incremental
@@ -457,7 +458,7 @@ No debe contener copy narrativo especifico ni datos de dominio.
 2. PLAN-002: reorganizacion no funcional de tema, app shell y Mi Sendero.
 3. PLAN-003: desacoplamiento de navegacion visual y route descriptors.
 4. PLAN-004: separacion de features de presentacion actuales.
-5. PLAN-005: decisiones creativas de nombres, personajes, Guardian y Portal.
+5. PLAN-005: decisiones creativas restantes, consentimiento, privacidad y taxonomias.
 6. PLAN-006: contratos de dominio minimos aprobados.
 7. PLAN-007: persistencia y consentimiento.
 8. PLAN-008: Portal y transicion narrativa.
@@ -486,30 +487,76 @@ Fuera de alcance de esta auditoria y de la siguiente reorganizacion inmediata:
 - Crear sistema de personajes.
 - Crear Comunidad o Biblioteca.
 
-## 18. Decisiones pendientes de Direccion Creativa
+## 18. Matriz de decisiones de Direccion Creativa
 
-- Confirmar si el termino principal es `Guardian`, `Agente` u otro.
-- Confirmar si `Mi Sendero` reemplaza a Home o si existira una Home adicional.
-- Definir que es `Primer Vinculo` y como se relaciona con Portal.
-- Definir el significado funcional y narrativo de Portal.
-- Definir si `Compi` y `Lumi` son personajes canonicos, asistentes, voces o placeholders.
-- Aclarar relacion entre Compi/Lumi y Vin/Sagh.
-- Validar Galeria de Samara: colecciones, piezas, productos, artefactos o biblioteca visual.
-- Validar Atelier: personalizacion estetica, huella, monograma, piezas o diseno.
-- Definir Reconexion: ritual, sesion, evento, recompensa o flujo.
-- Definir V.S. Coins: moneda, puntos, energia, credito o placeholder.
-- Definir propiedad de Impacto: Guardian, Huellas, Progreso o otra feature.
-- Definir si Biblioteca y Comunidad pertenecen al primer ciclo o quedan reservadas.
-- Definir reglas de consentimiento, privacidad y perfil progresivo.
-- Definir alcance real de AR y si requiere camara, objetos fisicos, piezas o Portal.
+Esta matriz actualiza las decisiones creativas posteriores a la auditoria. "Paquete de produccion propietario" identifica la responsabilidad funcional para planificacion; no autoriza crear carpetas, modelos ni codigo en esta fase.
 
-## 19. Revision preliminar de modelos futuros
+| Decision | Estado | Resolucion vigente | Paquete de produccion propietario |
+| --- | --- | --- | --- |
+| Termino principal del usuario | RESUELTA | El termino principal es `Guardian`. | `features/guardian` |
+| Rol de Mi Sendero | RESUELTA | `Mi Sendero` no es Home tradicional; es el destino de recorrido del Guardian. | `features/journey` |
+| Acceso futuro | RESUELTA | El acceso futuro sigue: Primer Vinculo -> Portal -> transicion -> Mi Sendero. | `features/portal` y `features/journey` |
+| Naturaleza de Compi y Lumi | RESUELTA | Compi y Lumi son personajes principales y canonicos de la IP. | `features/characters` |
+| Funcion de Compi | RESUELTA | Compi impulsa la exploracion. | `features/characters` |
+| Funcion de Lumi | RESUELTA | Lumi sensibiliza despues de una experiencia. | `features/characters` |
+| Galeria de Samara | RESUELTA | Es un espacio de descubrimiento de piezas. | `features/gallery` |
+| Atelier | RESUELTA | Es un espacio creativo vinculado al recorrido del Guardian. | `features/atelier` |
+| Reconexion | RESUELTA | Es el flujo de economia real para vincular una pieza. | `features/reconnection` |
+| V.S. Coins | RESUELTA | Son reconocimiento interno; no son dinero ni puntos. | `features/wallet` |
+| Primera Huella | RESUELTA | Ocurre al recibir la primera pieza y reconocer el Monograma VS. | `features/footprints` con relacion a `features/atelier` |
+| Realidad Aumentada | PARCIALMENTE RESUELTA | Es parte obligatoria del Portal y usara camara/anclaje espacial; proveedor, plugin, persistencia tecnica y recuperacion siguen pendientes. | `features/portal` con soporte futuro de capacidades AR |
+| Relacion Compi/Lumi con Vin/Sagh | PENDIENTE | Falta definir relacion canonica, jerarquia narrativa y reglas de aparicion conjunta. | Direccion Creativa / `features/characters` |
+| Propiedad de impacto, Huellas y progreso | PENDIENTE | Falta definir propietario definitivo entre `footprints`, `journey`, `guardian` y progreso. | Direccion Creativa / arquitectura |
+| Prioridad de Comunidad y Biblioteca | PENDIENTE | Falta definir si entran en el primer ciclo o permanecen reservadas. | `features/community` y `features/library` |
+| Consentimiento y privacidad | PENDIENTE | Falta definir modelo exacto de consentimiento, privacidad, permisos y perfil progresivo. | `core/privacy` o propietario futuro aprobado |
+| Proveedor y tecnologia AR | PENDIENTE | Falta seleccionar proveedor, plugin, persistencia tecnica y recuperacion de experiencias AR. | `features/portal` / plataforma AR futura |
+| Taxonomia tecnica de piezas, colecciones e inventario | PENDIENTE | Falta cerrar nombres, entidades, relaciones y ownership tecnico. | `features/gallery`, `features/atelier`, `features/reconnection` y propietario de inventario futuro |
+
+## 19. Condiciones arquitectonicas para PLAN-002
+
+PLAN-002 debe mantenerse como reorganizacion no funcional y sin cambio visual. Las condiciones arquitectonicas vigentes son:
+
+- `wallet` pertenece unicamente a economia interna.
+- Reconexion pertenece a economia real.
+- No acoplar Reconexion a V.S. Coins.
+- `FirstFootprint` se vincula al reconocimiento del Monograma VS.
+- Portal no se implementa todavia.
+- El app shell debe quedar preparado para seleccionar un estado inicial.
+- Mi Sendero continua siendo el destino temporal mientras Portal no exista.
+- No crear `data/`, `domain` ni modelos en PLAN-002.
+- Preservar visualmente APP-009.
+
+## 20. Jerarquia economica oficial
+
+La jerarquia economica oficial queda registrada asi:
+
+```text
+Experiencia
+  -> Emocion
+    -> Reflexion
+      -> Huella
+        -> Impacto
+          -> V.S. Coins
+```
+
+Esta jerarquia ubica V.S. Coins como reconocimiento interno derivado del recorrido, no como dinero, puntos, saldo monetario ni mecanismo de Reconexion.
+
+## 21. Capas oficiales
+
+| Capa | Responsabilidad |
+| --- | --- |
+| Emocional | Ordena la sensacion, pertenencia, calma, reconocimiento y respuesta del Guardian. |
+| Narrativa | Ordena Primer Vinculo, Portal, transiciones, personajes, piezas, Monograma VS y continuidad del universo. |
+| Economia interna | Ordena reconocimiento, V.S. Coins, recompensas internas y lectura de avance sin valor monetario. |
+| Economia real | Ordena Reconexion y vinculacion real de piezas; no depende de V.S. Coins. |
+
+## 22. Revision preliminar de modelos futuros
 
 Esta seccion no autoriza crear clases. Solo ubica riesgos y propietarios preliminares.
 
 | Modelo | Dominio propietario preliminar | Responsabilidad | Relaciones preliminares | Riesgos / validacion |
 | --- | --- | --- | --- | --- |
-| `GuardianProfile` | `guardian` | Identidad progresiva del Guardian | `GuardianEssence`, `GuardianPreferences`, `Consent`, `GuardianProgress` | Validar `Guardian` vs `Agente`; no duplicar `ve_profiles`. |
+| `GuardianProfile` | `guardian` | Identidad progresiva del Guardian | `GuardianEssence`, `GuardianPreferences`, `Consent`, `GuardianProgress` | `Guardian` queda resuelto como termino principal; no duplicar `ve_profiles`. |
 | `GuardianEssence` | `guardian` | Rasgos narrativos o esencia personal | Perfil, preferencias, monograma | Alto riesgo creativo; no deberia existir aun. |
 | `GuardianPreferences` | `guardian` | Preferencias de experiencia/comunicacion | Perfil, consentimiento | Separar preferencias de consentimiento legal. |
 | `GuardianImpact` | `footprints` o `guardian` | Agregado de impacto | Huellas, progreso, metricas | Riesgo de duplicar `impactScore` y `ImpactCard`. |
@@ -517,40 +564,40 @@ Esta seccion no autoriza crear clases. Solo ubica riesgos y propietarios prelimi
 | `GuardianProgress` | `journey` o `guardian` | Hitos y avance | Perfil, Huellas, recompensas | Riesgo de duplicar `ve_progress` y `RewardHistory`. |
 | `SharedJourney` | `journey` o `community` | Experiencia compartida | Guardianes, Comunidad, Senderos | No deberia existir aun sin reglas sociales. |
 | `Consent` | `guardian` o `core/privacy` | Permisos y aceptaciones | Perfil, AR, persistencia, preferencias | Necesario antes de datos sensibles, pero no como stub prematuro. |
-| `GuardianWallet` | `wallet` | Estado de cartera | `VSCoins`, `RewardHistory`, `Inventory` | Depende de economia aprobada. |
-| `VSCoins` | `wallet` | Unidad economica o valor | Wallet, recompensas | Nombre y reglas necesitan validacion; podria ser value object, no entidad. |
+| `GuardianWallet` | `wallet` | Estado de reconocimiento interno | `VSCoins`, `RewardHistory` si se aprueba | No debe representar economia real ni Reconexion. |
+| `VSCoins` | `wallet` | Reconocimiento interno no monetario y no equivalente a puntos | Wallet, avance, recompensas internas | Concepto creativo resuelto; forma tecnica pendiente y probablemente value object, no entidad. |
 | `Collection` | `gallery` | Agrupacion de piezas | `Piece`, `GalleryItem` | Nombre demasiado generico; validar `SamaraCollection`. |
 | `Piece` | `gallery`, `atelier` o `inventory` | Pieza fisica/digital | Coleccion, inventario, assets | Nombre generico; riesgo de duplicar GalleryItem. |
-| `Reconnection` | `reconnection` | Sesion o flujo de reconexion | Journey, rewards, wallet | Validar si es ritual, evento o contenido. |
+| `Reconnection` | `reconnection` | Flujo de economia real para vincular una pieza | Pieza, Guardian, Portal o Journey segun fase | No acoplar a V.S. Coins; persistencia y contrato pendientes. |
 | `AtelierDesign` | `atelier` | Configuracion de diseno | Monogram, Piece, FirstFootprint | No crear antes de reglas del Atelier. |
 | `GalleryItem` | `gallery` | Item presentable en Galeria | Collection, Piece, asset manifest | Puede duplicar `Piece`; definir diferencia. |
 | `Monogram` | `atelier` o `guardian` | Marca/simbolo personal | GuardianEssence, AtelierDesign | Alto riesgo canonico; no deberia existir aun. |
-| `FirstFootprint` | `footprints` o `journey` | Primera Huella / primer hito | GuardianFootprints, Progress | Validar nombre y relacion con Primer Vinculo. |
+| `FirstFootprint` | `footprints` o `journey` | Primera Huella al recibir la primera pieza y reconocer el Monograma VS | GuardianFootprints, Progress, Monogram | Concepto resuelto; propietario definitivo de Huellas/progreso pendiente. |
 | `Inventory` | `wallet` o `gallery` | Posesion de piezas/recompensas | Wallet, Piece, Collection | No deberia existir aun; riesgo de acercarse a tienda/closet. |
 | `RewardHistory` | `wallet` o `progress` | Historial de recompensas | Wallet, Progress, events | Riesgo de duplicar eventos y `ve_rewards`. |
 
-Modelos que no deberian existir todavia: `GuardianEssence`, `SharedJourney`, `VSCoins`, `Collection`, `Piece`, `AtelierDesign`, `GalleryItem`, `Monogram`, `FirstFootprint`, `Inventory`, `RewardHistory`. Pueden reservarse conceptualmente, pero crear clases ahora fijaria nombres y relaciones sin suficiente aprobacion.
+Modelos que no deberian existir todavia: `GuardianEssence`, `SharedJourney`, `VSCoins`, `Collection`, `Piece`, `AtelierDesign`, `GalleryItem`, `Monogram`, `FirstFootprint`, `Inventory`, `RewardHistory`. Algunos conceptos ya tienen resolucion creativa parcial o completa, pero crear clases ahora fijaria contratos, persistencia y relaciones tecnicas antes de PLAN-002.
 
-## 20. Evaluacion por sistema futuro solicitado
+## 23. Evaluacion por sistema futuro solicitado
 
 | Sistema | Estado actual | Preparacion recomendada |
 | --- | --- | --- |
-| Primer Vinculo | No existe en codigo | Definir flujo y vocabulario antes de modelos. |
-| Portal | No existe | Desacoplar entrada inicial; reservar feature cuando se apruebe. |
-| AR | No existe | No agregar dependencias; preparar consentimiento/capacidades en fase futura. |
-| Esencia del Guardian | Solo copy de Guardian | Decision creativa antes de dominio. |
+| Primer Vinculo | No existe en codigo | Flujo de acceso resuelto conceptualmente; no implementar en PLAN-002. |
+| Portal | No existe | Desacoplar entrada inicial; preparar app shell sin implementar Portal. |
+| AR | No existe | Obligatoria para Portal con camara/anclaje espacial; proveedor y tecnologia pendientes. |
+| Esencia del Guardian | Solo copy de Guardian | Requiere decision creativa especifica antes de dominio. |
 | Perfil progresivo | No existe | Requiere consentimiento y modelo minimo aprobado. |
 | Senderos | Mi Sendero visual existe | Conservar visual y migrar a `journey`. |
-| Huellas | Aparece en copy/sidebar | Definir propietario `footprints` antes de datos. |
+| Huellas | Aparece en copy/sidebar | Primera Huella queda vinculada a pieza y Monograma VS; ownership de Huellas/progreso pendiente. |
 | Florecimiento | No existe | Reservado; no implementar. |
 | Comunidad | No existe | Reservado. |
 | Biblioteca | Solo item en sidebar | Reservado hasta contenido. |
-| Economia interna | Wallet visual existe | Esperar reglas de V.S. Coins y recompensas. |
-| Galeria de Samara | Card visual existe | Separar presentacion; validar taxonomia. |
-| Atelier | Card visual existe | Separar presentacion; validar reglas. |
-| Reconexion | Card visual existe | Separar presentacion; validar flujo. |
+| Economia interna | Wallet visual existe | V.S. Coins son reconocimiento interno; separar de economia real. |
+| Galeria de Samara | Card visual existe | Espacio de descubrimiento de piezas; separar presentacion y validar taxonomia tecnica. |
+| Atelier | Card visual existe | Espacio creativo vinculado al recorrido; separar presentacion y validar reglas tecnicas. |
+| Reconexion | Card visual existe | Flujo de economia real para vincular una pieza; separar de wallet/V.S. Coins. |
 
-## 21. Recomendacion final
+## 24. Recomendacion final
 
 **GO CON CONDICIONES** para iniciar la reorganizacion arquitectonica.
 
@@ -559,8 +606,8 @@ Condiciones obligatorias:
 - La primera fase de reorganizacion debe ser no funcional y sin cambio visual.
 - No crear `data/` ni `domain/` vacios.
 - No agregar dependencias.
-- No crear modelos futuros hasta resolver nombres y propietarios.
+- No crear modelos futuros hasta resolver contratos, persistencia y propietarios restantes.
 - No tocar `docs/00_canon`.
 - Preservar APP-008 y APP-009 como base tecnica/visual.
 - Mantener pruebas existentes y ampliarlas solo cuando una fase lo autorice.
-- Tratar la documentacion previa de Agente/Vin/Sagh como antecedente, no como canon automaticamente aplicable a Lumea.
+- Tratar la documentacion previa de Agente/Vin/Sagh como antecedente; `Guardian`, Compi y Lumi ya tienen resolucion vigente, pero la relacion con Vin/Sagh sigue pendiente.
