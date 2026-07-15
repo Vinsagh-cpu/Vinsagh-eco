@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/vinsagh_colors.dart';
 import '../../../theme/vinsagh_spacing.dart';
 
 class LumeaSidebar extends StatelessWidget {
@@ -19,23 +20,35 @@ class LumeaSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
+    final isDark = !isCompact;
+    final foreground = isDark
+        ? VinsaghColors.inverseOnSurface
+        : VinsaghColors.textPrimary;
+    final secondaryForeground = isDark
+        ? foreground.withAlpha(180)
+        : VinsaghColors.textSecondary;
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: scheme.inverseSurface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: scheme.tertiary.withAlpha(95)),
+        color: isDark ? VinsaghColors.inverseSurface : VinsaghColors.surface,
+        borderRadius: BorderRadius.circular(VinsaghRadii.lg),
+        border: Border.all(
+          color: isDark
+              ? VinsaghColors.accent.withAlpha(90)
+              : VinsaghColors.outlineVariant,
+        ),
         boxShadow: [
           BoxShadow(
-            color: scheme.primary.withAlpha(22),
-            blurRadius: 28,
-            offset: const Offset(0, 18),
+            color: VinsaghColors.primary.withAlpha(isDark ? 24 : 12),
+            blurRadius: isDark ? 28 : 18,
+            offset: Offset(0, isDark ? 18 : 10),
           ),
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(VinsaghSpacing.lg),
+        padding: EdgeInsets.all(
+          isCompact ? VinsaghSpacing.md : VinsaghSpacing.lg,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -46,12 +59,12 @@ class LumeaSidebar extends StatelessWidget {
                   width: 42,
                   height: 42,
                   decoration: BoxDecoration(
-                    color: scheme.tertiaryContainer,
-                    borderRadius: BorderRadius.circular(12),
+                    color: VinsaghColors.accentContainer,
+                    borderRadius: BorderRadius.circular(VinsaghRadii.sm),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.shield_outlined,
-                    color: scheme.primary,
+                    color: VinsaghColors.primary,
                     size: 23,
                   ),
                 ),
@@ -63,14 +76,14 @@ class LumeaSidebar extends StatelessWidget {
                       Text(
                         'Lumea',
                         style: theme.textTheme.titleMedium?.copyWith(
-                          color: scheme.onInverseSurface,
+                          color: foreground,
                         ),
                       ),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: VinsaghSpacing.xs),
                       Text(
                         'Mi Sendero',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: scheme.onInverseSurface.withAlpha(180),
+                          color: secondaryForeground,
                         ),
                       ),
                     ],
@@ -80,9 +93,9 @@ class LumeaSidebar extends StatelessWidget {
             ),
             SizedBox(height: isCompact ? VinsaghSpacing.md : VinsaghSpacing.xl),
             if (isCompact)
-              _CompactNavigation(items: _items)
+              _CompactNavigation(items: _items, isDark: isDark)
             else
-              _SideList(items: _items),
+              _SideList(items: _items, isDark: isDark),
           ],
         ),
       ),
@@ -91,27 +104,32 @@ class LumeaSidebar extends StatelessWidget {
 }
 
 class _SideList extends StatelessWidget {
-  const _SideList({required this.items});
+  const _SideList({required this.items, required this.isDark});
 
   final List<_LumeaNavItem> items;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (final item in items) ...[
-          _NavigationTile(item: item),
-          const SizedBox(height: VinsaghSpacing.sm),
-        ],
+        for (var index = 0; index < items.length; index++)
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: index == items.length - 1 ? 0 : VinsaghSpacing.sm,
+            ),
+            child: _NavigationTile(item: items[index], isDark: isDark),
+          ),
       ],
     );
   }
 }
 
 class _CompactNavigation extends StatelessWidget {
-  const _CompactNavigation({required this.items});
+  const _CompactNavigation({required this.items, required this.isDark});
 
   final List<_LumeaNavItem> items;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +147,7 @@ class _CompactNavigation extends StatelessWidget {
             for (final item in items)
               SizedBox(
                 width: itemWidth,
-                child: _NavigationTile(item: item),
+                child: _NavigationTile(item: item, isDark: isDark),
               ),
           ],
         );
@@ -139,20 +157,29 @@ class _CompactNavigation extends StatelessWidget {
 }
 
 class _NavigationTile extends StatelessWidget {
-  const _NavigationTile({required this.item});
+  const _NavigationTile({required this.item, required this.isDark});
 
   final _LumeaNavItem item;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
     final background = item.isActive
-        ? scheme.tertiaryContainer
-        : scheme.onInverseSurface.withAlpha(18);
+        ? VinsaghColors.accentContainer
+        : isDark
+        ? VinsaghColors.inverseOnSurface.withAlpha(18)
+        : VinsaghColors.surfaceContainer.withAlpha(150);
     final foreground = item.isActive
-        ? scheme.primary
-        : scheme.onInverseSurface.withAlpha(225);
+        ? VinsaghColors.primary
+        : isDark
+        ? VinsaghColors.inverseOnSurface.withAlpha(225)
+        : VinsaghColors.textPrimary;
+    final borderColor = item.isActive
+        ? VinsaghColors.accent.withAlpha(130)
+        : isDark
+        ? VinsaghColors.inverseOnSurface.withAlpha(35)
+        : VinsaghColors.outlineVariant;
 
     return Container(
       constraints: const BoxConstraints(minHeight: 48),
@@ -162,12 +189,8 @@ class _NavigationTile extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: background,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: item.isActive
-              ? scheme.tertiary.withAlpha(130)
-              : scheme.onInverseSurface.withAlpha(35),
-        ),
+        borderRadius: BorderRadius.circular(VinsaghRadii.sm),
+        border: Border.all(color: borderColor),
       ),
       child: Row(
         children: [

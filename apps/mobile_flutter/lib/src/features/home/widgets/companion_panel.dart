@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/vinsagh_colors.dart';
 import '../../../theme/vinsagh_spacing.dart';
 
 class CompanionPanel extends StatelessWidget {
@@ -8,13 +9,12 @@ class CompanionPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: scheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: scheme.outlineVariant),
+        color: VinsaghColors.surfaceContainer,
+        borderRadius: BorderRadius.circular(VinsaghRadii.lg),
+        border: Border.all(color: VinsaghColors.outlineVariant),
       ),
       child: Padding(
         padding: const EdgeInsets.all(VinsaghSpacing.lg),
@@ -23,25 +23,34 @@ class CompanionPanel extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.lightbulb_outline, color: scheme.tertiary, size: 28),
+                Container(
+                  width: 46,
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: VinsaghColors.accentContainer,
+                    borderRadius: BorderRadius.circular(VinsaghRadii.sm),
+                  ),
+                  child: const Icon(
+                    Icons.lightbulb_outline,
+                    color: VinsaghColors.accent,
+                    size: 26,
+                  ),
+                ),
                 const SizedBox(width: VinsaghSpacing.md),
                 Expanded(
-                  child: Text(
-                    'Compi / Lumi',
-                    style: theme.textTheme.titleMedium,
-                  ),
+                  child: Text('Compi/Lumi', style: theme.textTheme.titleMedium),
                 ),
               ],
             ),
-            const SizedBox(height: VinsaghSpacing.md),
-            _CompanionNote(
+            const SizedBox(height: VinsaghSpacing.lg),
+            const _CompanionNote(
               name: 'Compi',
               message:
-                  'Te propone la siguiente acción, celebra el avance y abre caminos de exploración.',
+                  'Propone la siguiente acción, celebra el avance y abre caminos de exploración.',
               icon: Icons.explore_outlined,
             ),
             const SizedBox(height: VinsaghSpacing.md),
-            _CompanionNote(
+            const _CompanionNote(
               name: 'Lumi',
               message:
                   'Enciende curiosidad, reflexión y sensibilización para mirar mejor cada Huella.',
@@ -68,19 +77,18 @@ class _CompanionNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(VinsaghSpacing.md),
       decoration: BoxDecoration(
-        color: scheme.surface.withAlpha(190),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: scheme.outlineVariant),
+        color: VinsaghColors.surface.withAlpha(195),
+        borderRadius: BorderRadius.circular(VinsaghRadii.md),
+        border: Border.all(color: VinsaghColors.outlineVariant),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: scheme.primary, size: 22),
+          Icon(icon, color: VinsaghColors.primary, size: 22),
           const SizedBox(width: VinsaghSpacing.md),
           Expanded(
             child: Column(
