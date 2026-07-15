@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../navigation/technical_navigation_item.dart';
-import '../theme/vinsagh_spacing.dart';
+import '../shared/theme/vinsagh_spacing.dart';
 
 class TechnicalNavigationPanel extends StatelessWidget {
   const TechnicalNavigationPanel({super.key});
@@ -108,9 +108,7 @@ class _TechnicalNavigationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final background = item.isActive
-        ? scheme.primaryContainer
-        : scheme.surface;
+    final background = item.isActive ? scheme.primaryContainer : scheme.surface;
     final foreground = item.isActive
         ? scheme.onPrimaryContainer
         : scheme.onSurface;

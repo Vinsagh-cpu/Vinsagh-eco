@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../modules/technical_module.dart';
-import '../theme/vinsagh_spacing.dart';
+import '../shared/theme/vinsagh_spacing.dart';
 
 class TechnicalModulesPanel extends StatelessWidget {
   const TechnicalModulesPanel({super.key});

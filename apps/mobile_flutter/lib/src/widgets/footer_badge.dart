@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../theme/vinsagh_spacing.dart';
+import '../shared/theme/vinsagh_spacing.dart';
 
 class FooterBadge extends StatelessWidget {
-  const FooterBadge({
-    super.key,
-    required this.icon,
-    required this.label,
-  });
+  const FooterBadge({super.key, required this.icon, required this.label});
 
   final IconData icon;
   final String label;
@@ -32,10 +28,7 @@ class FooterBadge extends StatelessWidget {
         children: [
           Icon(icon, size: VinsaghSpacing.md, color: scheme.primary),
           const SizedBox(width: VinsaghSpacing.sm),
-          Text(
-            label,
-            style: theme.textTheme.labelLarge,
-          ),
+          Text(label, style: theme.textTheme.labelLarge),
         ],
       ),
     );

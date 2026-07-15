@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:vinsagh_eco_mobile/src/vinsagh_eco_app.dart';
+import 'package:vinsagh_eco_mobile/src/core/app/vinsagh_eco_app.dart';
 
 void main() {
   testWidgets('renders the APP-009 Mi Sendero visual experience', (

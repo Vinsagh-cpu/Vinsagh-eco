@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/vinsagh_colors.dart';
-import '../../theme/vinsagh_spacing.dart';
+import '../../../shared/theme/vinsagh_colors.dart';
+import '../../../shared/theme/vinsagh_spacing.dart';
 import 'widgets/atelier_card.dart';
 import 'widgets/companion_panel.dart';
 import 'widgets/guardian_header.dart';
@@ -11,8 +11,8 @@ import 'widgets/reconnection_available_card.dart';
 import 'widgets/samara_collections_card.dart';
 import 'widgets/wallet_card.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class MiSenderoScreen extends StatelessWidget {
+  const MiSenderoScreen({super.key});
 
   static const double _desktopBreakpoint = 1080;
   static const double _tabletBreakpoint = 720;
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: _HomeContent(
+                    child: _MiSenderoContent(
                       showCompactNavigation: false,
                       horizontalPadding: VinsaghSpacing.xl,
                       maxWidth: _contentMaxWidth,
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
               );
             }
 
-            return _HomeContent(
+            return _MiSenderoContent(
               showCompactNavigation: true,
               horizontalPadding: isTablet
                   ? VinsaghSpacing.lg
@@ -70,8 +70,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _HomeContent extends StatelessWidget {
-  const _HomeContent({
+class _MiSenderoContent extends StatelessWidget {
+  const _MiSenderoContent({
     required this.showCompactNavigation,
     required this.horizontalPadding,
     required this.maxWidth,

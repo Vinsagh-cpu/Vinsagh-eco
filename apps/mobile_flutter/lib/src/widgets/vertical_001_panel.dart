@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/vinsagh_spacing.dart';
+import '../shared/theme/vinsagh_spacing.dart';
 import '../verticals/vertical_001_stage.dart';
 
 class Vertical001Panel extends StatelessWidget {
