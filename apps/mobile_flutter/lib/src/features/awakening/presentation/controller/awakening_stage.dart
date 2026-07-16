@@ -1,0 +1,18 @@
+enum AwakeningStage {
+  initialDarkness,
+  footprintVisible,
+  invitationVisible,
+  authorizationRequested,
+  authorizationAuthorized,
+  authorizationCancelled,
+  authorizationUnavailable,
+  authorizationRecoverableError,
+  accessibleAlternative,
+  awakeningInProgress,
+  compiArrival,
+  firstBondInProgress,
+  initialAffinity,
+  firstBondCompleted,
+  portalPending,
+  completed,
+}
