@@ -42,6 +42,7 @@ La experiencia debe funcionar como un umbral narrativo. La primera sesión no se
 - El despertar debe sentirse orgánico, natural, elegante y misterioso.
 - Compi acompaña, no enseña como tutorial tradicional.
 - Lumi permanece completamente ausente.
+- RESUELTO: la ausencia total de Lumi no queda pendiente de confirmación.
 - El Portal no se crea en `VS-001`.
 - La Realidad Aumentada no se implementa ni se simula como existente.
 - El estado final es `Portal pendiente de creación`.
@@ -242,13 +243,15 @@ El despertar debe sentirse como una respuesta del universo de Lumea, no como una
 
 ### Escena 06 · Identidad de Lumea
 
-El monograma oficial puede aparecer discretamente si Dirección Creativa lo aprueba.
+El monograma estará ausente de la primera implementación técnica salvo autorización visual explícita de Dirección Creativa.
 
 No utilizar splash corporativo.
 
+No utilizar placeholders, texto sustituto ni monogramas inventados para ocupar su lugar.
+
 Vinsagh Eco Studios es la empresa creadora, pero no protagoniza la entrada. La protagonista de la experiencia es Lumea.
 
-El monograma, si aparece, debe integrarse como una señal breve y elegante dentro del despertar. No debe interrumpir la escena ni desplazar la Huella como foco narrativo.
+Si Dirección Creativa autoriza visualmente el monograma, debe integrarse como una señal breve y elegante dentro del despertar. No debe interrumpir la escena ni desplazar la Huella como foco narrativo.
 
 ### Escena 07 · Compi
 
@@ -284,11 +287,11 @@ Información potencial:
 
 - Nombre elegido.
 - Idioma.
-- Rango de edad, únicamente cuando exista justificación funcional y legal.
-- Región aproximada, únicamente cuando exista propósito definido.
 - Preferencias de accesibilidad.
 - Consentimientos explícitos.
 - Afinidad inicial.
+
+Rango de edad y región aproximada quedan excluidos de la primera implementación hasta que exista una finalidad funcional, legal o narrativa aprobada.
 
 Cada dato deberá explicar para qué se utiliza. Los consentimientos deben permanecer claros, separados de la narrativa poética, verificables, revocables cuando corresponda y versionados.
 
@@ -353,6 +356,8 @@ Su entrada debe tener respiración, pausa y presencia. Si el diseño oficial aú
 
 ## 10. Ausencia de Lumi
 
+Resolución de Dirección Creativa: `RESUELTO`.
+
 Lumi permanece completamente ausente durante `VS-001`.
 
 No aparece físicamente. No habla. No se insinúa mediante luz, sonido, partículas, siluetas, símbolos, reflejos, sombras ni señales narrativas.
@@ -387,6 +392,13 @@ La aplicación solo podrá recibir estados equivalentes a:
 - `No disponible`.
 - `Error recuperable`.
 
+Comportamiento conceptual por estado:
+
+- `Cancelado`: respetar la decisión del Guardián y ofrecer otra vía sin presión.
+- `No disponible`: presentar la alternativa accesible.
+- `Error recuperable`: permitir reintento o alternativa.
+- `Web/desarrollo`: utilizar una simulación controlada y explícita internamente.
+
 El texto de privacidad debe ser claro y comprensible:
 
 > “La confirmación se realiza de forma segura en tu dispositivo.
@@ -394,7 +406,19 @@ El texto de privacidad debe ser claro y comprensible:
 
 Este texto no debe quedar oculto en términos legales ni reemplazarse por metáforas. La narrativa puede acompañar, pero la información de privacidad debe ser directa.
 
-## 12. Alternativa accesible
+## 12. Fases de implementación por plataforma
+
+La implementación técnica futura deberá separarse por plataforma.
+
+- La primera versión web utilizará una simulación controlada.
+- La simulación no afirmará que existe biometría real.
+- La biometría nativa corresponde a Android, iOS o plataformas compatibles.
+- La app móvil solo recibirá resultados equivalentes a `Autorizado`, `Cancelado`, `No disponible` o `Error recuperable`.
+- Ninguna plataforma almacenará datos biométricos.
+
+La simulación web y de desarrollo debe ser explícita internamente para Programación, QA y revisión. No debe comunicar al Guardián que existe biometría real cuando la plataforma solo está usando simulación.
+
+## 13. Alternativa accesible
 
 Debe existir una alternativa completa a la biometría.
 
@@ -421,7 +445,7 @@ El método alternativo exacto queda pendiente de definición, pero debe cumplir 
 - No forzar datos personales adicionales.
 - No degradar la experiencia emocional.
 
-## 13. Primer Vínculo
+## 14. Primer Vínculo
 
 El Primer Vínculo es la primera conversación entre el Guardián, Compi y Lumea como mundo que despierta.
 
@@ -437,11 +461,11 @@ Puede solicitar únicamente información necesaria y justificada:
 
 - Nombre elegido: para dirigirse al Guardián dentro de la experiencia.
 - Idioma: para presentar contenido comprensible.
-- Rango de edad: solo si existe justificación funcional y legal.
-- Región aproximada: solo si existe propósito definido.
 - Preferencias de accesibilidad: para adaptar lectura, movimiento, sonido y controles.
 - Consentimientos explícitos: para bases legales y decisiones verificables.
 - Afinidad inicial: para orientar el primer tono narrativo.
+
+Rango de edad y región aproximada quedan excluidos de la primera implementación hasta que exista una finalidad funcional, legal o narrativa aprobada.
 
 Cada dato debe explicar para qué se usa. Si un dato no tiene propósito definido, no debe pedirse.
 
@@ -453,7 +477,7 @@ Los consentimientos deben ser:
 - Revocables cuando corresponda.
 - Versionados.
 
-## 14. Afinidad inicial
+## 15. Afinidad inicial
 
 La afinidad inicial se obtiene con una sola pregunta:
 
@@ -480,7 +504,7 @@ No debe:
 
 Su uso futuro debe ser reversible o ampliable.
 
-## 15. Persistencia futura
+## 16. Persistencia futura
 
 Cuando la implementación sea autorizada, `VS-001` podrá conservar únicamente:
 
@@ -504,7 +528,7 @@ Nunca almacenar:
 
 Esta sección no autoriza implementación de persistencia durante esta ejecución.
 
-## 16. Estados conceptuales
+## 17. Estados conceptuales
 
 Estados conceptuales de `VS-001`:
 
@@ -523,7 +547,7 @@ Estados conceptuales de `VS-001`:
 
 Estos estados ordenan la experiencia y los criterios futuros. No autorizan crear modelos Dart, enums, servicios, rutas, pantallas ni persistencia durante esta ejecución.
 
-## 17. Dirección visual
+## 18. Dirección visual
 
 La dirección visual debe ser:
 
@@ -556,7 +580,7 @@ La experiencia debe evitar:
 
 La Huella debe concentrar la atención inicial. El mundo se revela desde ella, no desde componentes de interfaz.
 
-## 18. Sonido y movimiento
+## 19. Sonido y movimiento
 
 El sonido debe pertenecer al ambiente natural y al despertar de Lumea.
 
@@ -588,7 +612,7 @@ El movimiento debe ser pausado y legible:
 
 Debe existir modo de reducción de movimiento. En ese modo, la escena debe conservar significado narrativo mediante cambios suaves, texto, ritmo y sonido controlable.
 
-## 19. Accesibilidad
+## 20. Accesibilidad
 
 `VS-001` debe requerir:
 
@@ -613,7 +637,7 @@ Requisitos de experiencia:
 
 La accesibilidad no es una ruta secundaria; es parte oficial del despertar.
 
-## 20. Riesgos
+## 21. Riesgos
 
 Riesgos creativos:
 
@@ -645,23 +669,26 @@ Riesgos de producción:
 - Agregar assets temporales que luego se vuelvan canónicos por accidente.
 - Extender el alcance hacia Portal, AR o Senderos.
 
-## 21. Dependencias creativas
+## 22. Dependencias creativas
 
 Dependencias creativas pendientes:
 
 - Recursos visuales oficiales de Compi.
 - Diseño oficial de la Huella.
-- Monograma definitivo para esta escena.
 - Dirección final de microanimaciones.
 - Sonido oficial.
 - Música ambiental oficial.
 - Duración final de cada escena.
 - Lineamientos finales de presencia de marca.
-- Confirmación de que Lumi no tendrá ninguna señal indirecta en este paquete.
 
-Sin estas dependencias, una implementación futura solo podrá trabajar con placeholders explícitos y no canónicos, si Dirección Creativa lo autoriza en otro paquete.
+Resoluciones creativas cerradas para la primera implementación:
 
-## 22. Dependencias técnicas futuras
+- Lumi no tendrá presencia directa ni indirecta en este paquete.
+- El monograma queda ausente salvo autorización visual explícita de Dirección Creativa.
+
+Sin estas dependencias, una implementación futura no podrá inventar apariencia definitiva ni convertir placeholders en recursos canónicos. Cualquier placeholder de Huella deberá estar autorizado explícitamente; el monograma no admite placeholder, texto sustituto ni versión inventada.
+
+## 23. Dependencias técnicas futuras
 
 Dependencias técnicas futuras:
 
@@ -678,7 +705,7 @@ Dependencias técnicas futuras:
 
 Estas dependencias no autorizan agregar dependencias, código, tests ni configuración durante esta ejecución.
 
-## 23. Criterios de aceptación
+## 24. Criterios de aceptación
 
 `VS-001` será aprobado cuando:
 
@@ -688,8 +715,10 @@ Estas dependencias no autorizan agregar dependencias, código, tests ni configur
 - Exista una alternativa accesible.
 - El despertar sea orgánico y no tecnológico.
 - Compi se sienta como compañero de aventura.
-- Lumi permanezca completamente ausente.
+- Lumi permanezca completamente ausente, sin señales directas ni indirectas.
+- El monograma esté ausente salvo autorización visual explícita de Dirección Creativa.
 - El Primer Vínculo obtenga solo información necesaria.
+- Rango de edad y región no se soliciten en la primera implementación sin finalidad aprobada.
 - Los consentimientos sean claros.
 - El estado final sea `Portal pendiente de creación`.
 - No se finja que el Portal o la AR ya existen.
@@ -697,15 +726,13 @@ Estas dependencias no autorizan agregar dependencias, código, tests ni configur
 
 > “No abrí una aplicación. Desperté Lumea.”
 
-## 24. Preguntas pendientes
+## 25. Preguntas pendientes
 
 Preguntas pendientes que deben resolverse antes de implementación:
 
 - Recursos visuales oficiales de Compi.
 - Diseño oficial de la Huella.
-- Monograma definitivo para esta escena.
-- Política final de edad.
-- Necesidad real de región.
+- Política final de edad y región cuando exista finalidad aprobada.
 - Texto legal de consentimientos.
 - Método alternativo exacto a biometría.
 - Tecnología futura de persistencia.
@@ -716,7 +743,24 @@ Preguntas pendientes que deben resolverse antes de implementación:
 
 Estas preguntas no bloquean la revisión documental, pero sí bloquean una implementación final responsable.
 
-## 25. Instrucción futura para Programación
+## 26. Puertas obligatorias antes de implementación funcional
+
+Antes de autorizar cualquier implementación funcional de `VS-001`, deben cumplirse y registrarse estas puertas:
+
+- Alcance web aprobado.
+- Alternativa exacta a biometría.
+- Política de edad y región.
+- Copy legal y versionado de consentimientos.
+- Estrategia de persistencia.
+- Tratamiento visual autorizado de Compi.
+- Diseño de Huella o placeholder autorizado.
+- Reducción de movimiento.
+- Control de sonido.
+- Revisión de accesibilidad.
+
+Estas puertas bloquean biometría, persistencia y nuevas pantallas hasta que exista autorización explícita posterior.
+
+## 27. Instrucción futura para Programación
 
 Programación no debe implementar `VS-001` hasta recibir autorización explícita posterior a revisión de Dirección Creativa.
 
@@ -728,8 +772,11 @@ Cuando la implementación sea autorizada, Programación deberá respetar este do
 - No crear el Portal en este paquete.
 - No implementar AR en este paquete.
 - No insinuar a Lumi.
+- No utilizar monograma, placeholder de monograma, texto sustituto ni versión inventada sin autorización visual explícita.
 - No inventar diseño visual de Compi.
 - No agregar datos al Primer Vínculo sin propósito definido.
+- No solicitar rango de edad ni región en la primera implementación sin finalidad aprobada.
+- No afirmar biometría real en web o desarrollo cuando se use simulación controlada.
 - No mezclar consentimientos con narrativa poética.
 - No penalizar alternativas accesibles.
 
