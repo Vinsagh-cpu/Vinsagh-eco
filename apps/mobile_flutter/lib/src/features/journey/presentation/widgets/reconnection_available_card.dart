@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/vinsagh_colors.dart';
-import '../../../theme/vinsagh_spacing.dart';
+import '../../../../shared/theme/vinsagh_colors.dart';
+import '../../../../shared/theme/vinsagh_spacing.dart';
 
 class ReconnectionAvailableCard extends StatelessWidget {
   const ReconnectionAvailableCard({super.key});

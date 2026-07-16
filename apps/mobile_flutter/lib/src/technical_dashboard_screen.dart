@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'theme/vinsagh_spacing.dart';
+import 'shared/theme/vinsagh_spacing.dart';
 import 'widgets/footer_badge.dart';
 import 'widgets/scope_panel.dart';
 import 'widgets/technical_modules_panel.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/vinsagh_colors.dart';
-import '../../../theme/vinsagh_spacing.dart';
+import '../../../../shared/theme/vinsagh_colors.dart';
+import '../../../../shared/theme/vinsagh_spacing.dart';
 
 class WalletCard extends StatelessWidget {
   const WalletCard({super.key});

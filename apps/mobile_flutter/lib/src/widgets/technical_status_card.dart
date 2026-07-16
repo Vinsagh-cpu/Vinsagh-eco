@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/vinsagh_spacing.dart';
+import '../shared/theme/vinsagh_spacing.dart';
 
 class TechnicalStatusCard extends StatelessWidget {
   const TechnicalStatusCard({
@@ -28,10 +28,7 @@ class TechnicalStatusCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: theme.textTheme.titleMedium,
-            ),
+            Text(title, style: theme.textTheme.titleMedium),
             const SizedBox(height: VinsaghSpacing.md),
             for (final line in lines) ...[
               _StatusLine(theme: theme, label: line),
@@ -69,12 +66,7 @@ class _StatusLine extends StatelessWidget {
           ),
         ),
         const SizedBox(width: VinsaghSpacing.md),
-        Expanded(
-          child: Text(
-            label,
-            style: theme.textTheme.bodyMedium,
-          ),
-        ),
+        Expanded(child: Text(label, style: theme.textTheme.bodyMedium)),
       ],
     );
   }

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../theme/vinsagh_spacing.dart';
+import '../shared/theme/vinsagh_spacing.dart';
 
 class ScopePanel extends StatelessWidget {
-  const ScopePanel({
-    super.key,
-    required this.title,
-    required this.lines,
-  });
+  const ScopePanel({super.key, required this.title, required this.lines});
 
   final String title;
   final List<String> lines;
@@ -28,10 +24,7 @@ class ScopePanel extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: theme.textTheme.titleMedium,
-            ),
+            Text(title, style: theme.textTheme.titleMedium),
             const SizedBox(height: VinsaghSpacing.md),
             for (final line in lines) ...[
               _ScopeLine(theme: theme, label: line),
@@ -66,12 +59,7 @@ class _ScopeLine extends StatelessWidget {
           ),
         ),
         const SizedBox(width: VinsaghSpacing.md),
-        Expanded(
-          child: Text(
-            label,
-            style: theme.textTheme.bodyMedium,
-          ),
-        ),
+        Expanded(child: Text(label, style: theme.textTheme.bodyMedium)),
       ],
     );
   }
