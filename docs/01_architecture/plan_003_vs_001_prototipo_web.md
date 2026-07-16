@@ -8,9 +8,11 @@
 - Rama obligatoria: `planning/vs-001-web-prototype`.
 - Archivo autorizado: `docs/01_architecture/plan_003_vs_001_prototipo_web.md`.
 - Naturaleza de esta ejecucion: exclusivamente documental.
-- Implementacion autorizada por este documento: ninguna.
+- Implementacion autorizada por este documento: solo Sprint tecnico 01 interno, bajo los limites de este plan.
 
-Este plan prepara una primera implementacion web controlada de `VS-001`. No crea pantallas, no modifica codigo Dart, no modifica tests, no modifica `pubspec.yaml`, no agrega dependencias, no crea assets y no modifica `docs/00_canon`.
+Este plan prepara una primera implementacion web controlada de `VS-001`. Esta ejecucion documental no crea pantallas, no modifica codigo Dart, no modifica tests, no modifica `pubspec.yaml`, no agrega dependencias, no crea assets y no modifica `docs/00_canon`.
+
+El plan actualizado autoriza unicamente el Sprint tecnico 01 interno. No autoriza diseno creativo provisional, prototipo visual revisable, Sprint tecnico 02 ni cambios sobre `Mi Sendero`.
 
 ## 2. Dependencias
 
@@ -31,7 +33,7 @@ Resoluciones heredadas:
 
 ## 3. Objetivo
 
-Definir el plan tecnico para construir, en una fase posterior, el primer prototipo web de `VS-001 - El Despertar de Lumea`.
+Definir el plan tecnico para iniciar el Sprint tecnico 01 interno del prototipo web `VS-001 - El Despertar de Lumea`.
 
 El prototipo futuro debe validar:
 
@@ -41,13 +43,13 @@ El prototipo futuro debe validar:
 - Alternativa accesible completa para continuar.
 - Estado final `Portal pendiente de creacion`.
 
-Este documento no autoriza todavia la implementacion.
+Este documento autoriza unicamente el Sprint tecnico 01 interno. No autoriza el Sprint tecnico 02 ni ningun prototipo visual revisable mientras no se apruebe el tratamiento visual de la Huella.
 
 ## 4. Principios tecnicos
 
 - Web primero, sin Android ni iOS en esta fase.
 - Sin biometria real, sin plugins biometricos, sin camara y sin permisos de dispositivo.
-- La autorizacion web es una simulacion local, determinista y explicita para desarrollo y QA.
+- La autorizacion web, cuando se implemente despues de Sprint tecnico 01, sera una simulacion local, determinista y explicita para desarrollo y QA.
 - La experiencia narrativa solo recibe resultados de autorizacion, no detalles de plataforma.
 - No se almacena informacion sensible ni credenciales.
 - No se implementa persistencia definitiva.
@@ -55,7 +57,7 @@ Este documento no autoriza todavia la implementacion.
 - No se modifica `Mi Sendero` ni la experiencia `APP-009`.
 - No se introducen dependencias nuevas.
 - No se crean `data/` ni `domain/` vacios.
-- Las decisiones visuales de Huella y Compi requieren aprobacion de Direccion Creativa antes del codigo visible.
+- Las decisiones visuales de Huella y cualquier Compi corporal requieren aprobacion de Direccion Creativa antes del codigo visible.
 
 ## 5. Alcance
 
@@ -73,6 +75,8 @@ El prototipo web futuro prepara un flujo cerrado con estas escenas:
 10. Fade a negro.
 
 El alcance tecnico se limita a una experiencia web de validacion narrativa y accesible. No debe presentarse como flujo productivo de identidad, registro, autenticacion real ni perfil definitivo.
+
+Para Sprint tecnico 01, este flujo existe solo como shell interno de estados, transiciones, semantica y navegacion. La Huella solo puede existir como concepto de estado y accion accesible interna; Compi solo puede existir como secuencia textual sin representacion corporal.
 
 ## 6. Fuera de alcance
 
@@ -139,6 +143,8 @@ initialDarkness
   -> completed
 ```
 
+Para Sprint tecnico 01, `footprintVisible` es solo el nombre conceptual del estado y de la accion interna accesible. No implica dibujar Huella, simbolo, monograma ni placeholder visual reconocible.
+
 Ramas recuperables:
 
 ```text
@@ -169,7 +175,7 @@ Estados conceptuales minimos:
 | Estado | Responsabilidad | Transiciones validas |
 | --- | --- | --- |
 | `initialDarkness` | Oscuridad intencional de apertura. | `footprintVisible` |
-| `footprintVisible` | Muestra la Huella o su forma abstracta autorizada. | `invitationVisible` |
+| `footprintVisible` | Reserva el estado conceptual de Huella; en Sprint 01 solo habilita accion interna accesible, sin dibujo ni placeholder visual. | `invitationVisible` |
 | `invitationVisible` | Presenta invitacion y accion principal. | `authorizationRequested`, `accessibleAlternative` |
 | `authorizationRequested` | Solicita resultado al servicio conceptual. | `authorizationAuthorized`, `authorizationCancelled`, `authorizationUnavailable`, `authorizationRecoverableError` |
 | `authorizationAuthorized` | Confirma que la simulacion permitio continuar. | `awakeningInProgress` |
@@ -178,7 +184,7 @@ Estados conceptuales minimos:
 | `authorizationRecoverableError` | Permite reintento o via alternativa. | `invitationVisible`, `accessibleAlternative` |
 | `accessibleAlternative` | Confirma intencion por una ruta accesible. | `awakeningInProgress`, `invitationVisible` |
 | `awakeningInProgress` | Ejecuta despertar visual base. | `compiArrival` |
-| `compiArrival` | Reserva presencia aprobada de Compi. | `firstBondInProgress` |
+| `compiArrival` | Ejecuta la secuencia textual aprobada de Compi, sin representacion corporal. | `firstBondInProgress` |
 | `firstBondInProgress` | Solicita datos minimos del Primer Vinculo. | `initialAffinity`, `invitationVisible` solo si se cancela antes de confirmar |
 | `initialAffinity` | Solicita una afinidad inicial. | `firstBondCompleted` |
 | `firstBondCompleted` | Resume datos minimos y consentimiento de prototipo. | `portalPending` |
@@ -187,15 +193,15 @@ Estados conceptuales minimos:
 
 Acciones del Guardian:
 
-- Observar apertura y Huella.
-- Activar `Despertar Lumea` desde Huella, boton o accion equivalente de teclado/lector.
+- Observar apertura y, solo despues de aprobacion visual futura, Huella.
+- Activar `Despertar Lumea` desde una accion accesible interna, boton o accion equivalente de teclado/lector.
 - Cancelar la simulacion sin castigo.
-- Elegir alternativa accesible.
+- Elegir la accion alternativa `Continuar de otra forma`.
 - Reintentar ante error recuperable.
 - Ingresar nombre elegido.
 - Elegir idioma.
 - Ajustar preferencias basicas de accesibilidad.
-- Aceptar consentimiento de prototipo claramente identificado.
+- Aceptar consentimiento de prototipo claramente identificado mediante `Comprendo y deseo continuar`.
 - Elegir afinidad inicial.
 - Revisar y confirmar el Primer Vinculo minimo.
 
@@ -211,22 +217,26 @@ Estados recuperables:
 Estados que no pueden saltarse:
 
 - `initialDarkness`.
-- `footprintVisible`.
+- `footprintVisible`, como estado conceptual sin Huella visible en Sprint 01.
 - `invitationVisible`.
 - `authorizationRequested` o `accessibleAlternative`.
 - `awakeningInProgress`.
-- `compiArrival`, cuando Direccion Creativa haya aprobado el tratamiento provisional.
+- `compiArrival`, con la secuencia textual aprobada y sin cuerpo visible.
 - `firstBondInProgress`.
 - `initialAffinity`.
 - `portalPending`.
 - `completed`.
 
-Comportamiento al recargar la web:
+Comportamiento al recargar la web, RESUELTO para Sprint tecnico 01:
 
-- Recomendacion: reiniciar el prototipo desde `initialDarkness`.
-- No recuperar datos del Primer Vinculo en la primera version.
-- No usar almacenamiento local en esta fase inicial.
-- No simular una sesion persistente.
+- Estado solo en memoria.
+- Reinicio completo desde `initialDarkness` al recargar.
+- Sin `localStorage`.
+- Sin `shared_preferences`.
+- Sin Firebase.
+- Sin backend.
+- Sin recuperacion de sesion.
+- Sin simulacion de sesion persistente.
 
 Comportamiento de desarrollo:
 
@@ -277,6 +287,13 @@ Implementacion web futura:
 - Debe presentar el acto como confirmacion para continuar, no como verificacion de identidad real.
 - Debe permitir alternativa accesible desde la invitacion o desde estados de fallo recuperable.
 
+Microcopy aprobado para alternativa y estados recuperables:
+
+- Accion alternativa: "Continuar de otra forma".
+- Cancelado: "Está bien. Puedes intentarlo de nuevo o continuar de otra forma."
+- No disponible: "La confirmación no está disponible en este dispositivo. Puedes continuar de otra forma."
+- Error recuperable: "No pudimos completar la confirmación. Puedes intentarlo nuevamente o continuar de otra forma."
+
 Sustitucion posterior por adaptador nativo:
 
 - La experiencia narrativa debe depender solo de resultados conceptuales.
@@ -289,13 +306,25 @@ Este plan no crea la interfaz Dart, no crea el servicio y no autoriza paquetes b
 
 ## 11. Primer Vinculo minimo
 
-La primera implementacion web debe pedir unicamente:
+Cuando se implemente el Primer Vinculo, la experiencia web debe pedir unicamente:
 
 - Nombre elegido.
 - Idioma.
 - Preferencias basicas de accesibilidad.
 - Consentimiento de prototipo claramente identificado.
 - Afinidad inicial.
+
+Consentimiento de prototipo aprobado:
+
+> Esta es una prueba web de El Despertar de Lumea. No utiliza biometría real y tus respuestas no se conservarán al recargar la página. Al continuar, aceptas participar en esta validación de experiencia.
+
+Accion aprobada:
+
+> Comprendo y deseo continuar
+
+Este consentimiento de prototipo no sustituye futuros consentimientos legales productivos.
+
+En Sprint tecnico 01, estos datos y este consentimiento pueden existir solo como concepto de estado. No se implementa Primer Vinculo completo.
 
 Datos excluidos:
 
@@ -337,11 +366,12 @@ Opciones evaluadas:
 | Almacenamiento local provisional | Media: deja datos en navegador. | Alta para retomar estados. | Alto: puede consolidarse como arquitectura por accidente. | Recupera sesion parcial. | Requiere UI o rutina clara de limpieza. |
 | Reinicio completo al recargar | Alta: no conserva datos. | Media: obliga repetir flujo. | Bajo. | Ninguna. | Automatica. |
 
-Recomendacion:
+Decision aprobada por Direccion Creativa, RESUELTA para Sprint tecnico 01:
 
 - Usar estado solo en memoria.
 - Aceptar reinicio completo al recargar como comportamiento intencional de la primera version.
 - No autorizar `localStorage`, `shared_preferences`, base local, Firebase ni backend.
+- No implementar recuperacion de sesion.
 - No guardar nombre, idioma, accesibilidad, consentimiento ni afinidad inicial en esta fase.
 
 Justificacion:
@@ -354,53 +384,73 @@ Justificacion:
 
 ## 13. Huella de Lumea
 
-No se debe inventar el diseno definitivo de la Huella.
+Decision de Direccion Creativa: el diseno de la Huella permanece BLOQUEANTE para Sprint tecnico 02.
 
-Separacion tecnica futura:
+Para Sprint tecnico 01 la Huella solo puede existir como:
 
-| Parte | Responsabilidad | Puede prototiparse con formas abstractas | Requiere autorizacion visual |
-| --- | --- | --- | --- |
-| Componente interactivo | Area accionable, foco, teclado, tacto y lector de pantalla. | Si. | No para comportamiento, si para apariencia final. |
-| Representacion visual | Forma visible de la Huella. | Solo si Direccion Creativa aprueba placeholder abstracto no canonico. | Si. |
-| Animacion | Respiracion, pulso, aparicion y respuesta. | Si, con movimiento nativo y abstracto. | Si para timings finales y gesto visual oficial. |
-| Semantica accesible | Nombre, rol, descripcion y accion equivalente. | Si. | Requiere revision de accesibilidad y copy. |
-| Respuesta al tacto | Feedback visual y avance controlado. | Si. | Si para lenguaje visual final. |
-| Recurso grafico futuro | Asset oficial de Huella. | No. | Si, antes de cualquier asset definitivo. |
+- Concepto de estado dentro del controlador o mecanismo equivalente.
+- Accion accesible interna para avanzar el flujo.
+- Transicion logica hacia la invitacion.
 
-Lineas permitidas para prototipo:
+No dibujar en Sprint tecnico 01:
 
-- Validar tamano tactil, foco, orden de lectura y accion alternativa.
-- Validar una respiracion abstracta con opacidad o escala.
-- Validar que la Huella no parezca boton tecnico ni captura biometrica.
+- Huella.
+- Simbolo.
+- Monograma.
+- Placeholder visual reconocible.
+- Forma abstracta que pueda interpretarse como tratamiento oficial.
+- Asset, imagen generada o `CustomPainter` dedicado a representar la Huella.
 
-Lineas bloqueadas:
+Separacion tecnica para la decision futura:
+
+| Parte | Sprint tecnico 01 | Sprint tecnico 02 o posterior |
+| --- | --- | --- |
+| Estado | Permitido como concepto interno. | Puede conectarse a la representacion aprobada. |
+| Accion accesible | Permitida sin simbolo visual de Huella. | Debe conservar teclado, tacto y lector de pantalla. |
+| Representacion visual | No autorizada. | Requiere aprobacion visual previa. |
+| Animacion de Huella | No autorizada. | Requiere aprobacion de gesto, duracion y lenguaje visual. |
+| Recurso grafico | No autorizado. | Requiere asset o tratamiento aprobado. |
+
+Lineas permitidas para Sprint tecnico 01:
+
+- Validar orden de estados.
+- Validar foco, semantica y navegacion por teclado.
+- Validar accion alternativa sin depender de un simbolo.
+- Validar que no exista captura biometrica real ni apariencia de huella digital.
+
+Lineas bloqueadas hasta aprobacion visual:
 
 - Forma oficial.
 - Linework definitivo.
 - Monograma.
-- Asset final.
+- Placeholder visual.
 - Simbolo que pueda interpretarse como huella digital real capturada.
+- Cualquier prototipo visual revisable basado en la Huella.
 
 ## 14. Compi
 
-Compi debe estar presente de forma provisional y autorizada, sin inventar su diseno.
+Decision de Direccion Creativa: el tratamiento provisional de Compi queda RESUELTO para Sprint tecnico 01 como secuencia textual sin representacion corporal.
 
-Opciones permitidas para evaluacion:
+Tratamiento autorizado:
 
-| Opcion | Valor | Riesgo | Recomendacion |
-| --- | --- | --- | --- |
-| Espacio escenico reservado | Permite ritmo de llegada sin cuerpo visible. | Puede sentirse incompleto si el copy no sostiene la presencia. | Recomendada para primer shell si Direccion Creativa la aprueba. |
-| Silueta abstracta expresamente no canonica | Permite probar entrada y foco visual. | Alto riesgo de que se trate como diseno oficial. | Usar solo con aprobacion explicita y marca interna de no canon. |
-| Marcador interno solo para desarrollo | Facilita pruebas tecnicas. | No sirve para validacion narrativa externa. | Util solo en QA interno, no para revision creativa. |
-| Secuencia textual sin representacion corporal | Evita inventar apariencia. | Puede reducir sensacion de llegada. | Recomendada si no hay autorizacion visual. |
+- Secuencia textual.
+- Sin cuerpo visible.
+- Sin representacion corporal.
+- Sin inferir especie, silueta, escala, rostro, gesto ni materialidad.
 
-Recomendacion:
+No usar:
 
-- Para el primer prototipo revisable, usar `secuencia textual sin representacion corporal` o `espacio escenico reservado`, segun aprobacion de Direccion Creativa.
-- No usar emoji, mascota generica, icono de Flutter, personaje generado ni ilustracion provisional tratada como oficial.
-- No afirmar que Compi conoce identidad, biometria o datos privados del Guardian.
+- Emoji.
+- Silueta.
+- Avatar.
+- Mascota.
+- Imagen generada.
+- Icono de Flutter.
+- Personaje generico.
+- Placeholder que sugiera diseno oficial.
+- Ilustracion provisional tratada como oficial.
 
-Antes de codificar Compi debe quedar aprobada una opcion de tratamiento provisional.
+La secuencia textual no aprueba el diseno definitivo de Compi. No se debe afirmar que Compi conoce identidad, biometria o datos privados del Guardian.
 
 ## 15. Ausencia de Lumi
 
@@ -428,7 +478,7 @@ Requisitos:
 - Navegacion por teclado.
 - Compatibilidad con lectores de pantalla.
 - Orden de foco predecible.
-- Accion alternativa a la Huella.
+- Accion alternativa a la accion principal; cuando exista Huella aprobada, esa alternativa no debe depender de verla.
 - Reduccion de movimiento.
 - Contraste suficiente.
 - Texto escalable.
@@ -440,7 +490,7 @@ Requisitos:
 
 Decisiones tecnicas futuras:
 
-- La accion principal debe ser alcanzable como boton o control semantico aunque la Huella tenga tratamiento visual no convencional.
+- La accion principal debe ser alcanzable como boton o control semantico. Si en una fase futura la Huella tiene tratamiento visual no convencional, la accion debe conservar equivalencia accesible.
 - Cada escena debe tener un titulo o descripcion accesible suficiente.
 - Las pausas narrativas deben poder avanzarse sin esperar animaciones largas.
 - Los estados `cancelled`, `unavailable` y `recoverableError` deben ofrecer salida clara y accesible.
@@ -463,9 +513,9 @@ Widgets y APIs nativas posibles:
 - `FadeTransition`.
 - `ScaleTransition`.
 - `SlideTransition`.
-- `CustomPainter`, solo si la Huella abstracta autorizada lo requiere.
+- `CustomPainter`, solo si una Huella visual aprobada lo requiere en Sprint tecnico 02 o posterior.
 
-Duraciones provisionales:
+Duraciones provisionales para fases visuales futuras. Estos rangos no autorizan Huella visible ni Compi corporal en Sprint tecnico 01:
 
 | Transicion | Duracion sugerida | Nota |
 | --- | ---: | --- |
@@ -474,7 +524,7 @@ Duraciones provisionales:
 | Invitacion | 400 a 700 ms | Texto legible antes de pedir accion. |
 | Espera narrativa | 600 a 1200 ms | No usar spinner tecnico. |
 | Despertar visual base | 1200 a 1800 ms | Luz organica y sobria. |
-| Llegada de Compi | 600 a 1000 ms | Segun tratamiento aprobado. |
+| Llegada de Compi | 600 a 1000 ms | Solo secuencia textual en Sprint 01; cualquier cuerpo requiere aprobacion posterior. |
 | Fade final | 600 a 900 ms | Cierra `Portal pendiente`. |
 
 Reduccion de movimiento:
@@ -513,7 +563,7 @@ No autorizar en esta fase:
 
 ## 19. Arquitectura propuesta
 
-Estructura futura equivalente, no autorizada todavia:
+Estructura autorizada para Sprint tecnico 01 interno, sin implementacion durante esta ejecucion documental:
 
 ```text
 features/
@@ -524,48 +574,51 @@ features/
       widgets/
 ```
 
-No crear por ahora:
+No crear en Sprint tecnico 01:
 
 - `data/`.
 - `domain/`.
-- Modelos.
-- Enums.
-- Servicios Dart.
+- Servicios Dart de autorizacion funcional.
 - Repositorios.
 - Assets.
-- Tests.
+- Persistencia.
+- Integraciones de plataforma.
+- Dependencias nuevas.
 
-Responsabilidades futuras:
+Responsabilidades del shell tecnico interno:
 
 | Elemento | Responsabilidad |
 | --- | --- |
-| Pantalla | Componer la experiencia visual y exponer semantica accesible. |
+| Shell de experiencia | Componer estados sin diseno final y exponer semantica accesible. |
 | Controlador de experiencia | Coordinar maquina de estados, transiciones y acciones del Guardian. |
 | Estado | Representar la escena actual y datos efimeros del Primer Vinculo en memoria. |
-| Autorizacion simulada | Devolver resultados controlados sin hardware ni biometria real. |
-| Primer Vinculo | Capturar solo nombre elegido, idioma, accesibilidad, consentimiento de prototipo y afinidad. |
-| Accesibilidad | Centralizar preferencias de reduccion de movimiento, foco, textos alternativos y ruta alternativa. |
+| Autorizacion | Representar estados conceptuales, sin autorizacion simulada funcional en Sprint 01. |
+| Primer Vinculo | Mantener concepto de estados; no implementar Primer Vinculo completo en Sprint 01. |
+| Accesibilidad | Incluir reduccion de movimiento, foco, textos alternativos y ruta alternativa desde el inicio. |
 | Transiciones | Encapsular duraciones, reduccion de movimiento y cambios visuales nativos. |
 
 La arquitectura debe aislar `VS-001` de `journey`. `Mi Sendero` no se mueve y no se convierte en dependencia del despertar.
 
 ## 20. Integracion con LumeaAppEntry
 
-`LumeaAppEntry` es el punto temporal adecuado para iniciar el prototipo `VS-001` en una implementacion futura, porque ya concentra la decision de entrada sin router.
+`LumeaAppEntry` no se modifica durante esta ejecucion documental ni durante Sprint tecnico 01.
+
+Sprint tecnico 01 debe mantener `Mi Sendero` protegido mediante guardia de regresion. Cualquier cambio futuro de entrada hacia `AwakeningScreen` requiere aprobacion posterior y no forma parte del GO actual.
 
 Opciones evaluadas:
 
 | Opcion | Ventaja | Riesgo | Evaluacion |
 | --- | --- | --- | --- |
-| Constante de desarrollo local | Simple, reversible y sin dependencia. | Puede quedarse como feature flag informal. | Apta si es temporal, nombrada como prototipo y removible. |
+| Constante de desarrollo local | Simple, reversible y sin dependencia. | Puede quedarse como feature flag informal. | No autorizada para Sprint tecnico 01; evaluar despues. |
 | Configuracion de compilacion | Permite builds separados. | Puede introducir pseudo feature flags antes de tiempo. | No recomendada para el primer sprint. |
-| Punto temporal de entrada en `LumeaAppEntry` | Aprovecha `PLAN-002` y evita router. | Debe proteger acceso a `Mi Sendero`. | Recomendada. |
+| Punto temporal de entrada en `LumeaAppEntry` | Aprovecha `PLAN-002` y evita router. | Debe proteger acceso a `Mi Sendero`. | No autorizada para Sprint tecnico 01; evaluar despues. |
 | Router | Escala a flujos futuros. | Agrega arquitectura no necesaria. | No autorizada. |
 
 Recomendacion:
 
-- En una fase futura, `LumeaAppEntry` podria apuntar temporalmente al prototipo `AwakeningScreen`.
-- La restauracion a `MiSenderoScreen` debe ser un cambio pequeno y obvio.
+- En Sprint tecnico 01, `LumeaAppEntry` debe seguir apuntando a la experiencia actual.
+- En una fase futura, `LumeaAppEntry` podria apuntar temporalmente al prototipo `AwakeningScreen` solo con aprobacion explicita.
+- La restauracion a `MiSenderoScreen` debe ser un cambio pequeno y obvio si esa fase futura se autoriza.
 - No implementar feature flags.
 - No agregar router.
 - No destruir ni ocultar irreversiblemente el acceso actual a `Mi Sendero`.
@@ -589,6 +642,11 @@ Pruebas futuras propuestas:
 - Ausencia de biometria real.
 - Ausencia de cambios en `Mi Sendero`.
 
+Sprint tecnico 01 debe incluir como minimo:
+
+- Pruebas de estados.
+- Guardia de regresion para confirmar que `Mi Sendero` permanece protegido.
+
 Enfoque:
 
 - Tests de widget para maquina de estados visible y acciones principales.
@@ -597,16 +655,16 @@ Enfoque:
 - Tests de regresion para confirmar que `APP-009` sigue renderizando `Mi Sendero`.
 - Tests especificos que verifiquen que el servicio web simulado no accede a hardware, permisos ni almacenamiento.
 
-No crear tests durante esta ejecucion.
+No crear tests durante esta ejecucion documental.
 
 ## 22. Riesgos
 
 | Riesgo | Impacto | Mitigacion |
 | --- | --- | --- |
 | La simulacion se percibe como biometria real. | Riesgo de privacidad y confianza. | Copy claro: web usa confirmacion controlada, no biometria. |
-| La Huella abstracta se vuelve canonica por accidente. | Riesgo creativo. | Requerir aprobacion y marcar como no canonica. |
-| Compi provisional fija un diseno no aprobado. | Riesgo creativo alto. | Preferir secuencia textual o espacio escenico aprobado. |
-| Persistencia local se vuelve arquitectura definitiva. | Riesgo tecnico y privacidad. | Estado solo en memoria. |
+| La Huella abstracta se vuelve canonica por accidente. | Riesgo creativo. | No dibujar Huella ni placeholder en Sprint 01; Sprint 02 queda en NO-GO hasta aprobacion visual. |
+| Compi provisional fija un diseno no aprobado. | Riesgo creativo alto. | Usar solo secuencia textual sin representacion corporal; no emoji, avatar, mascota ni imagen generada. |
+| Persistencia local se vuelve arquitectura definitiva. | Riesgo tecnico y privacidad. | Estado solo en memoria, sin `localStorage`, `shared_preferences`, Firebase ni recuperacion de sesion. |
 | El prototipo rompe `APP-009`. | Regresion visual. | Aislar `features/awakening` y probar `Mi Sendero`. |
 | El flujo parece login. | Falla narrativa. | Evitar copy tecnico y formularios administrativos. |
 | Temporizadores bloquean accesibilidad. | Falla de uso. | Permitir avance por accion y reduccion de movimiento. |
@@ -622,30 +680,65 @@ Clasificacion:
 | --- | --- | --- |
 | Alcance web | RESUELTO | Prototipo web controlado, sin Android/iOS. |
 | Simulacion de autorizacion | RESUELTO | Concepto y resultados definidos; no biometria real. |
-| Metodo alternativo | PARCIALMENTE RESUELTO | Debe existir; falta microcopy y decision exacta de interaccion. |
-| Diseno de Huella | BLOQUEANTE | No hay diseno oficial ni placeholder aprobado. |
-| Tratamiento provisional de Compi | BLOQUEANTE | Debe aprobarse opcion antes de codigo visible. |
-| Copy de consentimiento | BLOQUEANTE | Falta texto final de consentimiento de prototipo. |
-| Estrategia temporal de estado | RESUELTO | Recomendada: estado en memoria y reinicio al recargar. |
-| Reduccion de movimiento | PARCIALMENTE RESUELTO | Estrategia tecnica definida; falta validacion accesible. |
+| Metodo alternativo | RESUELTO | Accion aprobada: `Continuar de otra forma`. |
+| Diseno de Huella | BLOQUEANTE PARA SPRINT 02 | No hay diseno oficial ni placeholder aprobado; Sprint 01 solo puede usar concepto de estado y accion accesible interna. |
+| Tratamiento provisional de Compi | RESUELTO | Secuencia textual sin representacion corporal; sin emoji, silueta, avatar, mascota, imagen generada ni placeholder oficial. |
+| Copy de consentimiento | RESUELTO | Texto y accion aprobados; no sustituye consentimientos legales productivos futuros. |
+| Estrategia temporal de estado | RESUELTO | Estado solo en memoria; reinicio completo al recargar; sin `localStorage`, `shared_preferences`, Firebase ni recuperacion de sesion. |
+| Reduccion de movimiento | RESUELTO PARA SPRINT 01 | Debe existir desde el inicio del shell tecnico. |
 | Sonido | RESUELTO | No se implementa en primera iteracion. |
-| Microcopy final | PENDIENTE | Falta cierre de textos de invitacion, alternativas y errores. |
+| Microcopy final | RESUELTO PARA SPRINT 01 | Alternativa, cancelacion, no disponibilidad y error recuperable quedan aprobados. |
 | Duracion de escenas | PARCIALMENTE RESUELTO | Hay rangos provisionales; falta validacion narrativa. |
-| Validacion de accesibilidad | BLOQUEANTE | Debe aprobarse antes de considerar completa la implementacion. |
+| Validacion de accesibilidad | RESUELTO PARA SPRINT 01 | Semantica, teclado y reduccion de movimiento entran desde el inicio; validacion final sigue antes de prototipo revisable. |
 
-Estas puertas no bloquean un shell tecnico interno sin visuales canonicos, pero si bloquean cualquier prototipo revisable que muestre Huella o Compi de forma reconocible.
+Decision de puertas:
+
+- GO para Sprint tecnico 01 interno.
+- NO-GO para Sprint tecnico 02 hasta aprobar el tratamiento visual de la Huella.
+- NO-GO para cualquier prototipo visual revisable hasta aprobar el tratamiento visual de la Huella.
+- Sin diseno creativo provisional.
 
 ## 24. Fases y commits recomendados
 
-La division propuesta es adecuada si se ajusta con puertas creativas y accesibles antes de las fases visuales. Secuencia recomendada:
+Decision vigente:
 
-1. Sprint tecnico 01: shell de escenas y maquina de estados en memoria.
+- Sprint tecnico 01: GO interno.
+- Sprint tecnico 02: NO-GO hasta aprobacion visual de la Huella.
+- Cualquier prototipo visual revisable: NO-GO hasta aprobacion visual de la Huella.
+
+Sprint tecnico 01 incluira unicamente:
+
+- Estructura de `features/awakening/presentation`.
+- Shell de experiencia.
+- Controlador o mecanismo equivalente de estados en memoria.
+- Transiciones validas sin diseno final.
+- Reduccion de movimiento desde el inicio.
+- Semantica y navegacion por teclado.
+- Pruebas de estados.
+- Guardia de regresion para `Mi Sendero`.
+
+Sprint tecnico 01 no incluira:
+
+- Huella visible.
+- Compi corporal.
+- Primer Vinculo completo.
+- Autorizacion simulada funcional.
+- Animaciones creativas definitivas.
+- Sonido.
+- Persistencia.
+- Portal.
+- Realidad Aumentada.
+- Lumi.
+
+Secuencia recomendada despues de esta decision:
+
+1. Sprint tecnico 01: shell interno de escenas y estados en memoria.
    - Commit sugerido: `feat(awakening): add in-memory scene shell`.
-   - Condicion: sin Huella oficial, sin Compi visible, sin persistencia.
+   - Condicion: solo alcance tecnico interno listado arriba.
 
-2. Sprint tecnico 02: Huella provisional autorizada e invitacion.
+2. Sprint tecnico 02: Huella autorizada e invitacion.
    - Commit sugerido: `feat(awakening): add approved footprint invitation`.
-   - Condicion: placeholder o recurso aprobado por Direccion Creativa.
+   - Condicion: NO-GO hasta aprobacion visual de la Huella.
 
 3. Sprint tecnico 03: simulacion de autorizacion y casos alternativos.
    - Commit sugerido: `feat(awakening): add simulated authorization outcomes`.
@@ -657,7 +750,7 @@ La division propuesta es adecuada si se ajusta con puertas creativas y accesible
 
 5. Sprint tecnico 05: presencia autorizada de Compi.
    - Commit sugerido: `feat(awakening): add approved compi presence`.
-   - Condicion: tratamiento provisional aprobado; sin diseno inventado.
+   - Condicion: tratamiento visual aprobado si se pretende representacion no textual; sin diseno inventado.
 
 6. Sprint tecnico 06: Primer Vinculo minimo.
    - Commit sugerido: `feat(awakening): add minimal first bond`.
@@ -676,46 +769,62 @@ Correccion recomendada:
 - La accesibilidad no debe esperar al sprint 08 para existir. El sprint 08 debe ser endurecimiento y validacion final, no primera incorporacion.
 - La reduccion de movimiento debe entrar desde el sprint 01.
 - La aprobacion de Huella debe preceder al sprint 02.
-- La aprobacion de Compi debe preceder al sprint 05.
-- El consentimiento de prototipo debe preceder al sprint 06.
+- La representacion visual de Compi debe preceder cualquier Compi corporal.
+- El consentimiento de prototipo ya esta aprobado para el shell y no sustituye consentimientos legales productivos.
 
 ## 25. Criterios de aceptacion
 
 Criterios para este plan:
 
-- Documento unico creado en `docs/01_architecture/plan_003_vs_001_prototipo_web.md`.
+- Documento unico actualizado en `docs/01_architecture/plan_003_vs_001_prototipo_web.md`.
 - Sin cambios de codigo, tests, dependencias, assets ni `docs/00_canon`.
-- Alcance web, simulacion de autorizacion, estados, accesibilidad, persistencia temporal, Huella, Compi, ausencia de Lumi, pruebas futuras y puertas documentadas.
+- Alcance web, simulacion de autorizacion, estados, accesibilidad, persistencia temporal, Huella, Compi, copy aprobado, ausencia de Lumi, pruebas futuras y puertas documentadas.
+- GO de Sprint tecnico 01 interno registrado.
+- NO-GO de Sprint tecnico 02 y de prototipo visual revisable registrado.
 
-Criterios para la implementacion futura:
+Criterios para Sprint tecnico 01 interno:
 
-- El flujo completo puede recorrerse desde oscuridad hasta fade a negro.
+- Existe shell de experiencia dentro de `features/awakening/presentation`.
 - La web no afirma ni ejecuta biometria real.
-- La simulacion devuelve solo resultados controlados.
+- El estado vive solo en memoria.
+- Recargar reinicia completamente el flujo.
+- No se usa `localStorage`, `shared_preferences`, Firebase ni recuperacion de sesion.
 - Cancelacion, no disponibilidad y error recuperable tienen retorno seguro.
 - La alternativa accesible llega al mismo cierre.
-- Primer Vinculo pide solo datos autorizados.
-- No se pide edad, region, ubicacion, correo, contrasena, telefono ni cuenta.
-- No existe persistencia definitiva.
-- `Portal pendiente de creacion` es el estado final.
-- No se crea Portal, AR, Mi Sendero, economia ni assets definitivos.
+- No hay Huella visible ni placeholder reconocible.
+- Compi no tiene cuerpo, avatar, silueta, emoji, mascota ni imagen generada.
+- No hay Primer Vinculo completo.
+- No hay autorizacion simulada funcional.
+- No hay sonido, Portal, AR, persistencia ni assets.
 - Lumi esta ausente dentro de `VS-001`.
 - `APP-009` permanece sin regresiones.
 
 ## 26. Fuera de alcance tecnico
 
-No autorizado por este plan:
+No autorizado durante esta ejecucion documental:
 
-- Crear `AwakeningAuthorizationService` en Dart.
-- Crear enums o modelos de estado.
-- Crear `AwakeningScreen`.
-- Crear controladores.
-- Crear widgets.
+- Modificar codigo.
+- Modificar tests.
+- Modificar `pubspec.yaml`.
+- Agregar dependencias.
+- Crear assets.
 - Crear `features/awakening`.
+- Modificar `LumeaAppEntry`.
+- Modificar `MiSenderoScreen`.
+- Modificar `Mi Sendero`.
+- Modificar `docs/00_canon`.
+
+No autorizado para Sprint tecnico 01:
+
+- Huella visible.
+- Simbolo, monograma o placeholder visual reconocible.
+- Compi corporal.
+- Emoji, silueta, avatar, mascota o imagen generada para Compi.
+- Primer Vinculo completo.
+- Autorizacion simulada funcional.
 - Crear `data/` o `domain/`.
 - Modificar `LumeaAppEntry`.
 - Modificar `MiSenderoScreen`.
-- Modificar tests.
 - Modificar `pubspec.yaml`.
 - Agregar dependencias.
 - Crear assets.
@@ -728,17 +837,10 @@ No autorizado por este plan:
 
 ## 27. Recomendacion GO / GO CON CONDICIONES / NO-GO
 
-Recomendacion: **GO CON CONDICIONES** para planificar la primera implementacion web de `VS-001`.
+Recomendacion actualizada:
 
-Condiciones antes de codigo visible:
+- **GO** para Sprint tecnico 01 interno.
+- **NO-GO** para Sprint tecnico 02 hasta aprobar el tratamiento visual de la Huella.
+- **NO-GO** para cualquier prototipo visual revisable hasta aprobar el tratamiento visual de la Huella.
 
-- Aprobar tratamiento provisional de Huella.
-- Aprobar tratamiento provisional de Compi.
-- Aprobar copy de consentimiento de prototipo.
-- Aprobar microcopy de alternativa accesible y estados recuperables.
-- Confirmar estrategia de estado en memoria sin persistencia.
-- Confirmar que el prototipo no modifica `APP-009`.
-- Confirmar que no habra biometria real, Portal, AR, sonido oficial ni assets definitivos.
-- Definir criterios de validacion accesible antes de cerrar el sprint final.
-
-La primera implementacion puede avanzar solo como prototipo web controlado, con sprints pequenos, sin convertir placeholders en arquitectura definitiva y sin afirmar capacidades que la web no ejecuta.
+El Sprint tecnico 01 puede avanzar solo como shell tecnico interno, sin diseno creativo provisional, sin Huella visible, sin Compi corporal, sin persistencia, sin Portal, sin AR, sin Lumi y sin afirmar capacidades que la web no ejecuta.
