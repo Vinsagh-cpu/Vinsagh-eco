@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../experience/first_encounter/presentation/first_encounter_presentation.dart';
 import '../../experience/first_encounter/presentation/light/internal_light_preview_access.dart';
+import '../../experience/first_encounter/presentation/orchestration/first_encounter_orchestrator_presentation_adapter.dart';
 
 class LumeaAppEntry extends StatelessWidget {
   const LumeaAppEntry({
@@ -17,7 +17,9 @@ class LumeaAppEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return InternalLightPreviewAccess(
       enabled: internalPreviewAccessEnabled,
-      child: const FirstEncounterPresentation(),
+      child: FirstEncounterOrchestratorPresentationAdapter(
+        debugControlsEnabled: internalPreviewAccessEnabled,
+      ),
     );
   }
 }
