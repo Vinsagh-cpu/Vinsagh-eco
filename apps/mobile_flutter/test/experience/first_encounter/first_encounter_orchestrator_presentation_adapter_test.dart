@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vinsagh_eco_mobile/src/experience/first_encounter/application/first_encounter_controller.dart';
 import 'package:vinsagh_eco_mobile/src/core/app/lumea_app_entry.dart';
+import 'package:vinsagh_eco_mobile/src/experience/first_encounter/application/first_encounter_controller.dart';
 import 'package:vinsagh_eco_mobile/src/experience/first_encounter/presentation/orchestration/first_encounter_orchestrator_presentation_adapter.dart';
 
 void main() {
@@ -15,6 +15,10 @@ void main() {
 
       expect(
         find.byKey(const Key('firstEncounterOrchestrationDebugPanel')),
+        findsNothing,
+      );
+      expect(
+        find.byKey(const Key('firstEncounterCanonicalVisualMomentReadout')),
         findsNothing,
       );
       expect(
@@ -48,6 +52,36 @@ void main() {
         find.byKey(const Key('firstEncounterVisualPhaseReadout')),
         findsOneWidget,
       );
+      expect(
+        find.byKey(const Key('firstEncounterCanonicalVisualMomentReadout')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('exposes canonical visual state at Solanf presence', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: FirstEncounterOrchestratorPresentationAdapter(
+              autoplay: false,
+              debugControlsEnabled: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Canonical: solanfPresence'), findsOneWidget);
+      expect(find.text('Footprint placement: pawPadsOnly'), findsOneWidget);
+      expect(find.text('Footprint visibility: hidden'), findsOneWidget);
+      expect(find.text('A: hidden'), findsOneWidget);
+      expect(find.text('Biometric: abstractOnly'), findsOneWidget);
+      expect(
+        find.text('Accessibility: reducedMotionSupported'),
+        findsOneWidget,
+      );
+      expect(find.text('Scope: dc006CompiLumiExcluded'), findsOneWidget);
     });
 
     testWidgets('does not let the placeholder visual autoplay independently', (
@@ -101,6 +135,30 @@ void main() {
         findsOneWidget,
       );
       expect(find.textContaining('THRESHOLD_BOND'), findsNothing);
+    });
+
+    testWidgets('updates canonical visual state while waiting for Guardian', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: FirstEncounterOrchestratorPresentationAdapter(
+              debugControlsEnabled: true,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 8400));
+      await tester.pump();
+
+      expect(find.text('Canonical: waitingForGuardian'), findsOneWidget);
+      expect(
+        find.text('Footprint visibility: presentedIncomplete'),
+        findsOneWidget,
+      );
+      expect(find.text('A: incomplete'), findsOneWidget);
     });
 
     testWidgets('pauses placeholder visual at WAITING_FOR_GUARDIAN', (
@@ -157,6 +215,86 @@ void main() {
 
       expect(find.textContaining('THRESHOLD_BOND'), findsOneWidget);
       expect(find.textContaining('CONTACT_PENDING'), findsOneWidget);
+    });
+
+    testWidgets('keeps canonical A incomplete before A_COMPLETION', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: FirstEncounterOrchestratorPresentationAdapter(
+              debugControlsEnabled: true,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 8400));
+      await tester.pump();
+
+      await tester.tap(
+        find.byKey(const Key('guardianRecognitionAcceptedButton')),
+      );
+      await tester.pump();
+
+      expect(find.text('Canonical: contactPending'), findsOneWidget);
+      expect(find.text('A: incomplete'), findsOneWidget);
+    });
+
+    testWidgets('exposes A completion through canonical visual state', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: FirstEncounterOrchestratorPresentationAdapter(
+              debugControlsEnabled: true,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 8400));
+      await tester.pump();
+
+      await tester.tap(
+        find.byKey(const Key('guardianRecognitionAcceptedButton')),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1800));
+      await tester.pump();
+
+      expect(find.text('Canonical: aCompletion'), findsOneWidget);
+      expect(find.text('A: completingThroughBond'), findsOneWidget);
+    });
+
+    testWidgets('exposes awakened footprint after A completion', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: FirstEncounterOrchestratorPresentationAdapter(
+              debugControlsEnabled: true,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 8400));
+      await tester.pump();
+
+      await tester.tap(
+        find.byKey(const Key('guardianRecognitionAcceptedButton')),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 2200));
+      await tester.pump();
+
+      expect(find.text('Canonical: footprintAwakened'), findsOneWidget);
+      expect(find.text('Footprint visibility: awakenedInPads'), findsOneWidget);
+      expect(find.text('A: completeThroughBond'), findsOneWidget);
     });
 
     testWidgets('resumes placeholder visual after guardian recognition', (

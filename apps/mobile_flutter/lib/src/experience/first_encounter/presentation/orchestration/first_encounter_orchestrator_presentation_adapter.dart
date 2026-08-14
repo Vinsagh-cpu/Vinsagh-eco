@@ -7,6 +7,7 @@ import '../../domain/orchestration/first_encounter_orchestrator.dart';
 import '../../domain/solanf_performance/solanf_performance_phase.dart';
 import '../../domain/threshold_bond/threshold_bond_phase.dart';
 import '../first_encounter_presentation.dart';
+import '../visual_state/first_encounter_canonical_visual_state.dart';
 
 class FirstEncounterOrchestratorPresentationAdapter extends StatefulWidget {
   const FirstEncounterOrchestratorPresentationAdapter({
@@ -82,6 +83,10 @@ class _FirstEncounterOrchestratorPresentationAdapterState
   @override
   Widget build(BuildContext context) {
     final orchestrationState = _orchestrator.state;
+    final canonicalVisualState =
+        FirstEncounterCanonicalVisualState.fromOrchestrationState(
+          orchestrationState,
+        );
 
     if (!widget.debugControlsEnabled) {
       return _buildSyncedPlaceholder();
@@ -103,6 +108,24 @@ class _FirstEncounterOrchestratorPresentationAdapterState
               thresholdBondPhaseCode:
                   orchestrationState.thresholdBondState.phase.code,
               visualPhaseCode: _visualController.phase.name,
+              canonicalVisualMomentCode: canonicalVisualState.moment.name,
+              footprintPlacementCode:
+                  canonicalVisualState.footprintPlacement.name,
+              footprintVisibilityCode:
+                  canonicalVisualState.footprintVisibility.name,
+              aVisualStateCode: canonicalVisualState.aVisualState.name,
+              biometricPolicyCode: canonicalVisualState.exposesRealBiometricData
+                  ? 'realBiometricData'
+                  : 'abstractOnly',
+              accessibilityPolicyCode:
+                  canonicalVisualState.supportsReducedMotionAlternative
+                  ? 'reducedMotionSupported'
+                  : 'reducedMotionMissing',
+              externalScopePolicyCode:
+                  canonicalVisualState.referencesDc006 ||
+                      !canonicalVisualState.excludesCompiAndLumi
+                  ? 'externalScopeIncluded'
+                  : 'dc006CompiLumiExcluded',
               showGuardianRecognitionAction:
                   orchestrationState.isWaitingForGuardian,
               onGuardianRecognitionAccepted: _acceptGuardianRecognition,
@@ -180,6 +203,13 @@ class _OrchestrationDebugPanel extends StatelessWidget {
     required this.solanfPhaseCode,
     required this.thresholdBondPhaseCode,
     required this.visualPhaseCode,
+    required this.canonicalVisualMomentCode,
+    required this.footprintPlacementCode,
+    required this.footprintVisibilityCode,
+    required this.aVisualStateCode,
+    required this.biometricPolicyCode,
+    required this.accessibilityPolicyCode,
+    required this.externalScopePolicyCode,
     required this.showGuardianRecognitionAction,
     required this.onGuardianRecognitionAccepted,
   });
@@ -188,6 +218,13 @@ class _OrchestrationDebugPanel extends StatelessWidget {
   final String solanfPhaseCode;
   final String thresholdBondPhaseCode;
   final String visualPhaseCode;
+  final String canonicalVisualMomentCode;
+  final String footprintPlacementCode;
+  final String footprintVisibilityCode;
+  final String aVisualStateCode;
+  final String biometricPolicyCode;
+  final String accessibilityPolicyCode;
+  final String externalScopePolicyCode;
   final bool showGuardianRecognitionAction;
   final VoidCallback onGuardianRecognitionAccepted;
 
@@ -203,41 +240,79 @@ class _OrchestrationDebugPanel extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       child: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('First Encounter Orchestrator', style: labelStyle),
-            const SizedBox(height: 8),
-            Text(
-              'Stage: $stageCode',
-              key: const Key('firstEncounterOrchestrationStageReadout'),
-              style: labelStyle,
-            ),
-            Text(
-              'Solanf: $solanfPhaseCode',
-              key: const Key('firstEncounterSolanfPhaseReadout'),
-              style: labelStyle,
-            ),
-            Text(
-              'Threshold: $thresholdBondPhaseCode',
-              key: const Key('firstEncounterThresholdBondPhaseReadout'),
-              style: labelStyle,
-            ),
-            Text(
-              'Visual: $visualPhaseCode',
-              key: const Key('firstEncounterVisualPhaseReadout'),
-              style: labelStyle,
-            ),
-            if (showGuardianRecognitionAction) ...<Widget>[
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('First Encounter Orchestrator', style: labelStyle),
               const SizedBox(height: 8),
-              FilledButton(
-                key: const Key('guardianRecognitionAcceptedButton'),
-                onPressed: onGuardianRecognitionAccepted,
-                child: const Text('guardianRecognitionAccepted'),
+              Text(
+                'Stage: $stageCode',
+                key: const Key('firstEncounterOrchestrationStageReadout'),
+                style: labelStyle,
               ),
+              Text(
+                'Solanf: $solanfPhaseCode',
+                key: const Key('firstEncounterSolanfPhaseReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'Threshold: $thresholdBondPhaseCode',
+                key: const Key('firstEncounterThresholdBondPhaseReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'Visual: $visualPhaseCode',
+                key: const Key('firstEncounterVisualPhaseReadout'),
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Canonical: $canonicalVisualMomentCode',
+                key: const Key('firstEncounterCanonicalVisualMomentReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'Footprint placement: $footprintPlacementCode',
+                key: const Key('firstEncounterFootprintPlacementReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'Footprint visibility: $footprintVisibilityCode',
+                key: const Key('firstEncounterFootprintVisibilityReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'A: $aVisualStateCode',
+                key: const Key('firstEncounterAVisualStateReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'Biometric: $biometricPolicyCode',
+                key: const Key('firstEncounterBiometricPolicyReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'Accessibility: $accessibilityPolicyCode',
+                key: const Key('firstEncounterAccessibilityPolicyReadout'),
+                style: labelStyle,
+              ),
+              Text(
+                'Scope: $externalScopePolicyCode',
+                key: const Key('firstEncounterExternalScopePolicyReadout'),
+                style: labelStyle,
+              ),
+              if (showGuardianRecognitionAction) ...<Widget>[
+                const SizedBox(height: 8),
+                FilledButton(
+                  key: const Key('guardianRecognitionAcceptedButton'),
+                  onPressed: onGuardianRecognitionAccepted,
+                  child: const Text('guardianRecognitionAccepted'),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
