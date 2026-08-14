@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../../application/first_encounter_controller.dart';
 import '../../domain/orchestration/first_encounter_orchestration_stage.dart';
 import '../../domain/orchestration/first_encounter_orchestrator.dart';
 import '../../domain/solanf_performance/solanf_performance_phase.dart';
@@ -11,6 +12,7 @@ class FirstEncounterOrchestratorPresentationAdapter extends StatefulWidget {
   const FirstEncounterOrchestratorPresentationAdapter({
     super.key,
     this.orchestrator,
+    this.visualController,
     this.autoplay = true,
     this.debugControlsEnabled = const bool.fromEnvironment(
       'LUMEA_ENABLE_INTERNAL_PREVIEW',
@@ -18,6 +20,7 @@ class FirstEncounterOrchestratorPresentationAdapter extends StatefulWidget {
   });
 
   final FirstEncounterOrchestrator? orchestrator;
+  final FirstEncounterController? visualController;
   final bool autoplay;
   final bool debugControlsEnabled;
 
@@ -30,15 +33,19 @@ class _FirstEncounterOrchestratorPresentationAdapterState
     extends State<FirstEncounterOrchestratorPresentationAdapter>
     with SingleTickerProviderStateMixin {
   late final FirstEncounterOrchestrator _orchestrator;
-  late final bool _ownsOrchestrator;
+  late final FirstEncounterController _visualController;
+  late final bool _ownsVisualController;
+
   Ticker? _ticker;
   Duration? _lastTickElapsed;
 
   @override
   void initState() {
     super.initState();
-    _ownsOrchestrator = widget.orchestrator == null;
+
     _orchestrator = widget.orchestrator ?? FirstEncounterOrchestrator();
+    _ownsVisualController = widget.visualController == null;
+    _visualController = widget.visualController ?? FirstEncounterController();
 
     if (widget.autoplay) {
       _startTicker();
@@ -62,7 +69,13 @@ class _FirstEncounterOrchestratorPresentationAdapterState
 
   @override
   void dispose() {
-    _stopTicker();
+    _ticker?.dispose();
+    _ticker = null;
+
+    if (_ownsVisualController) {
+      _visualController.dispose();
+    }
+
     super.dispose();
   }
 
@@ -71,14 +84,14 @@ class _FirstEncounterOrchestratorPresentationAdapterState
     final orchestrationState = _orchestrator.state;
 
     if (!widget.debugControlsEnabled) {
-      return const FirstEncounterPresentation();
+      return _buildSyncedPlaceholder();
     }
 
     return Stack(
       key: const Key('firstEncounterOrchestratorPresentationAdapter'),
       fit: StackFit.expand,
       children: <Widget>[
-        const FirstEncounterPresentation(),
+        _buildSyncedPlaceholder(),
         Positioned(
           left: 16,
           right: 16,
@@ -89,6 +102,7 @@ class _FirstEncounterOrchestratorPresentationAdapterState
               solanfPhaseCode: orchestrationState.solanfState.phase.code,
               thresholdBondPhaseCode:
                   orchestrationState.thresholdBondState.phase.code,
+              visualPhaseCode: _visualController.phase.name,
               showGuardianRecognitionAction:
                   orchestrationState.isWaitingForGuardian,
               onGuardianRecognitionAccepted: _acceptGuardianRecognition,
@@ -96,6 +110,13 @@ class _FirstEncounterOrchestratorPresentationAdapterState
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSyncedPlaceholder() {
+    return FirstEncounterPresentation(
+      controller: _visualController,
+      autoplay: false,
     );
   }
 
@@ -121,8 +142,9 @@ class _FirstEncounterOrchestratorPresentationAdapterState
 
     _lastTickElapsed = elapsed;
 
-    if (delta > Duration.zero) {
+    if (delta > Duration.zero && !_orchestrator.state.isTerminal) {
       _orchestrator.advance(delta);
+      _visualController.advance(delta);
     }
 
     if (!mounted) {
@@ -157,6 +179,7 @@ class _OrchestrationDebugPanel extends StatelessWidget {
     required this.stageCode,
     required this.solanfPhaseCode,
     required this.thresholdBondPhaseCode,
+    required this.visualPhaseCode,
     required this.showGuardianRecognitionAction,
     required this.onGuardianRecognitionAccepted,
   });
@@ -164,6 +187,7 @@ class _OrchestrationDebugPanel extends StatelessWidget {
   final String stageCode;
   final String solanfPhaseCode;
   final String thresholdBondPhaseCode;
+  final String visualPhaseCode;
   final bool showGuardianRecognitionAction;
   final VoidCallback onGuardianRecognitionAccepted;
 
@@ -198,6 +222,11 @@ class _OrchestrationDebugPanel extends StatelessWidget {
             Text(
               'Threshold: $thresholdBondPhaseCode',
               key: const Key('firstEncounterThresholdBondPhaseReadout'),
+              style: labelStyle,
+            ),
+            Text(
+              'Visual: $visualPhaseCode',
+              key: const Key('firstEncounterVisualPhaseReadout'),
               style: labelStyle,
             ),
             if (showGuardianRecognitionAction) ...<Widget>[
