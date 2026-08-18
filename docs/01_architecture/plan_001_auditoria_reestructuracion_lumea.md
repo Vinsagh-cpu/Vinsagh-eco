@@ -606,8 +606,8 @@ Condiciones obligatorias:
 - La primera fase de reorganizacion debe ser no funcional y sin cambio visual.
 - No crear `data/` ni `domain/` vacios.
 - No agregar dependencias.
-- No crear modelos futuros hasta resolver contratos, persistencia y propietarios restantes.
+- No crear modelos futuros hasta resolver nombres, contratos, persistencia y propietarios.
 - No tocar `docs/00_canon`.
 - Preservar APP-008 y APP-009 como base tecnica/visual.
 - Mantener pruebas existentes y ampliarlas solo cuando una fase lo autorice.
-- Tratar la documentacion previa de Agente/Vin/Sagh como antecedente; `Guardian`, Compi y Lumi ya tienen resolucion vigente, pero la relacion con Vin/Sagh sigue pendiente.
+- Tratar la documentacion previa de Agente/Vin/Sagh como antecedente, no como canon automaticamente aplicable a Lumea.
